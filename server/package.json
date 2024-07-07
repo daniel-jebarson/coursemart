@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
+    "build": "babel src/index.js --out-file lib/index-compiled.cjs",
+    "start": "node lib/index-compiled.cjs",
     "dev": "nodemon --exec babel-node src/index.js"
   },
   "keywords": [],
@@ -16,6 +17,7 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.24.7",
     "@babel/core": "^7.24.7",
     "@babel/node": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
