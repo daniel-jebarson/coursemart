@@ -5,12 +5,14 @@ const express = require("express");
 const logHandler = require("./middleware/logs/log");
 require("dotenv").config();
 
+const userRoutes = require("./routes/user");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(logHandler);
 
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use("/user", userRoutes);
 
 const port = process.env.PORT || 5000;
 
