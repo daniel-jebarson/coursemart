@@ -8,6 +8,7 @@ const NotFound = require("./middleware/handler/404");
 const errorHandler = require("./middleware/handler/errorHandler");
 
 const userRoutes = require("./routes/user");
+const courseRoutes = require("./routes/course");
 
 const app = express();
 app.use(cors());
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(logHandler);
 
 app.use("/user", userRoutes);
+app.use("/course", courseRoutes);
 
 app.use(errorHandler);
 app.use(NotFound);
