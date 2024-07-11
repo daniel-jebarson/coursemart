@@ -4,6 +4,6 @@ const { authorizer } = require("../middleware/auth/auth");
 
 const router = express.Router();
 
-router.route("/register").post(registerCourse);
+router.route("/register").post(authorizer, registerCourse);
 
 module.exports = router;
