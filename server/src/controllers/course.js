@@ -22,7 +22,6 @@ const registerCourse = asyncHandler(async (req, res) => {
     ContactNumber,
     Location,
     courseImage,
-    soldCount,
     InstituteId,
   } = req.body;
 
@@ -68,14 +67,34 @@ const registerCourse = asyncHandler(async (req, res) => {
     if (error.name === "ValidationError") {
       // Mongoose validation error
       const errors = Object.values(error.errors).map((err) => err.message);
-      console.log(errors);
       throw new CustomError(errors, 400);
     }
-    console.error("Error creating user:", error);
+    throw new CustomError("Server Error", 500);
+  }
+});
+
+const getCourseByInstituteId = asyncHandler(async (req, res) => {
+  const { instituteId } = req.params;
+  if (!instituteId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    const instituteCourse = await CourseModel.find({
+      InstituteId: instituteId,
+    }).populate("InstituteId", "name email phone");
+
+    if (instituteCourse) {
+      res.status(200).json(instituteCourse);
+    } else {
+      throw new CustomError("Failed to fetch the institute's course!", 400);
+    }
+  } catch (error) {
     throw new CustomError("Server Error", 500);
   }
 });
 
 module.exports = {
   registerCourse,
+  getCourseByInstituteId,
 };
