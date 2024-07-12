@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -18,8 +19,19 @@ const userSchema = new mongoose.Schema(
       trim: true,
     },
     phone: {
-      type: Number,
+      type: String,
       trim: true,
+      validate: {
+        validator: function (v) {
+          return /^\+\d{1,2}\d{10}$/.test(v);
+        },
+        message: (props) => `${props.value} is not a valid phone number!`,
+      },
+    },
+    role: {
+      type: String,
+      enum: ["user", "institute"],
+      default: "user",
     },
   },
   {
