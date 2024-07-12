@@ -38,6 +38,10 @@ const courseSchema = new mongoose.Schema(
       type: [String],
       trim: true,
     },
+    tags: {
+      type: [String],
+      trim: true,
+    },
     Discount: { type: String, trim: true },
     teachingMode: {
       type: [String],

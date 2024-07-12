@@ -23,6 +23,7 @@ const registerCourse = asyncHandler(async (req, res) => {
     Location,
     courseImage,
     InstituteId,
+    tags,
   } = req.body;
 
   if (
@@ -56,6 +57,7 @@ const registerCourse = asyncHandler(async (req, res) => {
       Location,
       courseImage,
       InstituteId,
+      tags,
     });
 
     if (newCourse) {
