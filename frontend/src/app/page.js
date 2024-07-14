@@ -1,10 +1,5 @@
 import React from 'react'
-import Counter from '@/components/Counter'
 
-const Home = () => (
-  <div className="App">
-    <Counter />
-  </div>
-)
+const Home = () => <div className='App'>Test</div>
 
 export default Home
