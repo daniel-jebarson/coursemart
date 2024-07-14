@@ -40,6 +40,7 @@ const DynamicForm = ({ config }) => {
           label={field.label}
           name={field.name}
           rules={field.rules}
+          colon={false}
         >
           {renderFormItem[field?.type]}
         </Form.Item>
