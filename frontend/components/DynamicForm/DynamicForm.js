@@ -1,5 +1,3 @@
-// components/DynamicForm.js
-import React from 'react'
 import { Form, Input, Button } from 'antd'
 
 const DynamicForm = ({ config }) => {
@@ -13,15 +11,9 @@ const DynamicForm = ({ config }) => {
     console.log('Failed:', errorInfo)
   }
 
-  const renderFormItem = (type) => {
-    // Define components for each type
-    const components = {
-      input: <Input />,
-      password: <Input.Password />,
-    }
-
-    // Return the component for the specified type, or a default component
-    return components[type] || <Input />
+  const renderFormItem = {
+    input: <Input />,
+    password: <Input.Password />,
   }
 
   return (
