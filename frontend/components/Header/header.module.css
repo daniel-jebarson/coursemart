@@ -8,39 +8,3 @@
   background: #fff;
   z-index: 99;
 }
-
-.logo {
-  margin-right: 40px;
-}
-
-.nav {
-  font-size: 14px;
-}
-
-.navItem {
-  position: relative;
-  margin-right: 20px;
-  cursor: pointer;
-  line-height: 60px;
-}
-
-.navItem:hover .menubar {
-  display: block;
-}
-
-.navItem > span {
-  text-transform: uppercase;
-  font-size: 14px;
-  font-weight: 600;
-  color: #535b62;
-}
-
-.menubar {
-  position: absolute;
-  z-index: 9;
-  display: none;
-}
-
-.search {
-  margin-right: 20px;
-}

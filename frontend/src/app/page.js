@@ -1,9 +1,10 @@
 import React from 'react'
-import Header from '@/components/Header/Header'
+import { Header, Banner } from '@/components/index'
 
 const Home = () => (
   <div className='App'>
     <Header />
+    <Banner />
   </div>
 )
 

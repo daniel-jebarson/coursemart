@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
-import Providers from '@/components/Provider/Providers'
-import './globals.css'
+import { Providers } from '@/components/index'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
+import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
