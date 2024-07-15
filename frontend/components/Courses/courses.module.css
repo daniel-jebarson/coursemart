@@ -1,0 +1,16 @@
+.courses {
+  padding: 60px 0;
+  background-color: #f7f7f7;
+}
+
+.courses h1 {
+  margin-bottom: 40px;
+}
+
+.item {
+  margin-bottom: 20px;
+}
+
+.panelHead {
+  margin-bottom: 10px;
+}

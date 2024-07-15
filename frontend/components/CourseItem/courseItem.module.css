@@ -1,0 +1,59 @@
+.head {
+  margin-bottom: 40px;
+}
+
+.course {
+  background: #fff;
+  padding: 0px;
+  /* box-shadow: 0 1px 2px 2px #a2a2a247; */
+  border-radius: 10px;
+  transition: all 0.2s;
+  position: relative;
+  border: 1px solid #ededed;
+}
+.course:hover {
+  /* box-shadow: 0 2px 5px 5px #a2a2a247; */
+}
+.img {
+  border-radius: 10px 10px 0 0;
+}
+
+.content {
+  padding: 10px 20px 14px 20px;
+}
+
+.content h2 {
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.content p {
+  font-size: 14px;
+  margin-bottom: 10px;
+  line-height: 20px;
+}
+
+.coursePoints {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.coursePoints svg {
+  font-size: 20px;
+  margin-right: 10px;
+  color: #7e8287;
+}
+.pointsBlock {
+  font-size: 13px;
+}
+
+.stickyButton {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.linkBtn {
+  margin-left: -14px;
+}

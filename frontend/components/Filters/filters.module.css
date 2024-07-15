@@ -1,0 +1,8 @@
+.filterGroup {
+  display: block;
+}
+
+.filterGroup label {
+  display: flex;
+  margin-bottom: 10px;
+}
