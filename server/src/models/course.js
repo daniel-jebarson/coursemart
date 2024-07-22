@@ -53,12 +53,6 @@ const courseSchema = new mongoose.Schema(
     ContactNumber: {
       type: String,
       required: true,
-      validate: {
-        validator: function (v) {
-          return /^\+\d{1,2}\d{10}$/.test(v);
-        },
-        message: (props) => `${props.value} is not a valid phone number!`,
-      },
     },
     Location: { type: String, trim: true, required: true },
     courseImage: { type: String, trim: true },
