@@ -4,6 +4,7 @@ const UserModel = require("../models/user");
 const TokenModel = require("../models/token");
 const generateJWToken = require("../config/webtoken");
 const sendEmail = require("../utility/sendEmail");
+require("dotenv").config();
 
 const sendEmailLink = asyncHandler(async (req, res) => {
   try {
@@ -16,7 +17,7 @@ const sendEmailLink = asyncHandler(async (req, res) => {
       userId: id,
       token: token,
     });
-    console.log(Token);
+
     await sendEmail(
       gmail,
       "Activate your account in CourseMart!",
@@ -58,7 +59,7 @@ const verifyLink = asyncHandler(async (req, res) => {
             document.getElementById('timer').innerText = countdown;
             countdown--;
             if (countdown < 0) {
-              window.location.href = 'http://localhost:3000/login';
+              window.location.href = '${process.env.WEBSITE_URL}/login';
             } else {
               setTimeout(updateTimer, 1000);
             }
@@ -69,7 +70,7 @@ const verifyLink = asyncHandler(async (req, res) => {
       <body>
         <h1>Email verified successfully!</h1>
         <p>Redirecting in <span id="timer">5</span> seconds...</p>
-        <p>If not redirected, <a href="http://localhost:3000">click here to redirect</a>.</p>
+        <p>If not redirected, <a href="${process.env.WEBSITE_URL}/login">click here to redirect</a>.</p>
       </body>
     </html>
     `
