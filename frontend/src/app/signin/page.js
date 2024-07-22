@@ -1,8 +1,12 @@
 'use client'
 
 import { DynamicForm } from '@/components/index'
-import formConfig from './formConfig'
+import signin from '@/config/signin'
 
-const Signin = () => <DynamicForm config={formConfig.userForm} />
+const Signin = () => (
+  <div className='container'>
+    <DynamicForm config={signin} />
+  </div>
+)
 
 export default Signin

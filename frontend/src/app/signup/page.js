@@ -1,8 +1,12 @@
 'use client'
 
 import { DynamicForm } from '@/components/index'
-import formConfig from './formConfig'
+import signup from '@/config/signup'
 
-const Signup = () => <DynamicForm config={formConfig.userForm} />
+const Signup = () => (
+  <div className='container'>
+    <DynamicForm config={signup} />
+  </div>
+)
 
 export default Signup

@@ -1,6 +1,7 @@
 import { Form, Input, Button } from 'antd'
 
 const DynamicForm = ({ config }) => {
+  const { formName, layout, fields } = config
   const [form] = Form.useForm()
 
   const onFinish = (values) => {
@@ -19,14 +20,15 @@ const DynamicForm = ({ config }) => {
   return (
     <Form
       form={form}
-      name={config.formName}
+      name={formName}
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete='off'
+      layout={layout}
     >
-      {config.fields.map((field) => (
+      {fields.map((field) => (
         <Form.Item
           key={field.name}
           label={field.label}
