@@ -13,7 +13,18 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (UserExists) {
-    throw new CustomError("Username or gmail already exist!", 400);
+    if (UserExists.verified) {
+      throw new CustomError("Username or gmail already exist!", 400);
+    } else {
+      res.status(200).json({
+        _id: UserExists._id,
+        name: UserExists.name,
+        email: UserExists.email,
+        phone: UserExists.phone,
+        role: UserExists.role,
+        verified: UserExists.verified,
+      });
+    }
   }
 
   try {
@@ -24,7 +35,6 @@ const registerUser = asyncHandler(async (req, res) => {
       phone,
       role,
     });
-    const token = generateJWToken(newUser._id);
 
     if (newUser) {
       res.status(200).json({
@@ -33,7 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
         email: newUser.email,
         phone: newUser.phone,
         role: newUser.role,
-        token: token,
+        verified: newUser.verified,
       });
     } else {
       throw new CustomError("Failed to create user!", 400);
@@ -65,6 +75,7 @@ const loginUser = asyncHandler(async (req, res) => {
         email: selectUser.email,
         phone: selectUser.phone,
         role: selectUser.role,
+        verified: selectUser.verified,
         token: generateJWToken(selectUser._id),
       });
     } else {
