@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const sendEmailLink = asyncHandler(async (req, res) => {
   try {
-    const { gmail, id } = req.body;
+    const { email, id } = req.body;
     const token = generateJWToken(id);
     let isDeleted = await TokenModel.deleteOne({
       userId: id,
@@ -19,7 +19,7 @@ const sendEmailLink = asyncHandler(async (req, res) => {
     });
 
     await sendEmail(
-      gmail,
+      email,
       "Activate your account in CourseMart!",
       `Please click the below link for verification: \n\nThis link will expire in 10 minutes\n${
         req.protocol

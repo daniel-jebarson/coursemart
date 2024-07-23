@@ -68,6 +68,9 @@ const loginUser = asyncHandler(async (req, res) => {
     email: email,
   });
   if (selectUser) {
+    if (!selectUser.verified) {
+      throw new CustomError("Verify the Email first to login!", 400);
+    }
     if (await selectUser.matchPassword(password)) {
       res.status(200).json({
         _id: selectUser._id,
