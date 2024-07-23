@@ -15,16 +15,23 @@ module.exports = async (email, subject, text) => {
       },
     });
 
-    await transporter.sendMail({
+    let info = await transporter.sendMail({
       from: USER,
       to: email,
       subject: subject,
       text: text,
     });
-    console.log("email sent successfully".bgGreen.black.bold);
+
+    return {
+      status: "success",
+      message: info.response,
+      error: null,
+    };
   } catch (error) {
-    console.log("email not sent!".red);
-    console.log(error);
-    return error;
+    return {
+      status: "error",
+      message: "email not sent!",
+      error: error.message,
+    };
   }
 };

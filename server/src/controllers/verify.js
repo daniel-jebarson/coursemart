@@ -9,6 +9,21 @@ require("dotenv").config();
 const sendEmailLink = asyncHandler(async (req, res) => {
   try {
     const { email, id } = req.body;
+    if (!id || !email) {
+      throw new CustomError("Specify the required fields!", 400);
+    }
+    const UserExists = await UserModel.findOne({
+      $and: [{ _id: id }, { email: email }],
+    });
+
+    if (!UserExists) {
+      res.status(400).json({
+        name: "Error",
+        msg: "Invalid user or email id",
+      });
+      return;
+    }
+
     const token = generateJWToken(id);
     let isDeleted = await TokenModel.deleteOne({
       userId: id,
@@ -18,7 +33,7 @@ const sendEmailLink = asyncHandler(async (req, res) => {
       token: token,
     });
 
-    await sendEmail(
+    const emailStatus = await sendEmail(
       email,
       "Activate your account in CourseMart!",
       `Please click the below link for verification: \n\nThis link will expire in 10 minutes\n${
@@ -27,9 +42,16 @@ const sendEmailLink = asyncHandler(async (req, res) => {
         Token.token
       }\n\n\n\tIf you have any queries regarding this email feel free to contact this email address`
     );
-    res.status(200).send("Verification link sent successfully!");
+
+    if (emailStatus.status === "success") {
+      console.log("email sent successfully".bgGreen.black.bold);
+      res.status(200).json(emailStatus);
+    } else {
+      console.log("email not sent!".red);
+      res.status(400).json(emailStatus);
+    }
   } catch (err) {
-    throw new CustomError("Can't send the message", 400);
+    throw new CustomError("Can't send the email", 400);
   }
 });
 
