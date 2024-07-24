@@ -56,7 +56,7 @@ const signup = {
     {
       name: 'role',
       label: 'Role',
-      type: 'checkbox',
+      type: 'radio',
       rules: [{ required: true, message: 'Please select one option!' }],
       options: [
         { value: 'institute', label: 'Institute' },
