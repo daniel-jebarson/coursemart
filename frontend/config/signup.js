@@ -54,6 +54,16 @@ const signup = {
       ],
     },
     {
+      name: 'role',
+      label: 'Role',
+      type: 'checkbox',
+      rules: [{ required: true, message: 'Please select one option!' }],
+      options: [
+        { value: 'institute', label: 'Institute' },
+        { value: 'user', label: 'User' },
+      ],
+    },
+    {
       name: 'signupButton',
       type: 'button',
       options: {
