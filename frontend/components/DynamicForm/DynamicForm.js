@@ -49,7 +49,6 @@ const DynamicForm = ({ config, form }) => {
       autoComplete='off'
       layout={layout}
       scrollToFirstError
-      disabled={formName === 'verifyEmail'}
     >
       {fields.map((field) => (
         <Form.Item

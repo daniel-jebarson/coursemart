@@ -8,11 +8,11 @@ export const fieldVisibility = (type) => {
 }
 
 export const formItemComponents = {
-  input: <Input />,
-  password: <Input.Password />,
-  email: <Input type='email' />,
-  number: <Input type='number' />,
-  textarea: <Input.TextArea />,
+  input: (options) => <Input disabled={options?.disabled} />,
+  password: (options) => <Input.Password disabled={options?.disabled} />,
+  email: (options) => <Input type='email' disabled={options?.disabled} />,
+  number: (options) => <Input type='number' disabled={options?.disabled} />,
+  textarea: (options) => <Input.TextArea disabled={options?.disabled} />,
   hidden: ({ initialValue }) => (
     <Input type='hidden' initialvalues={initialValue} />
   ),
@@ -43,7 +43,7 @@ export const formItemComponents = {
       ))}
     </Checkbox.Group>
   ),
-  date: <DatePicker />,
+  date: (options) => <DatePicker />,
   button: (options) => (
     <Button
       type={options.type}
@@ -63,10 +63,5 @@ export const getFullUrl = (path) => {
 export const renderFormItem = (field) => {
   const { type, options } = field
   const component = formItemComponents[type]
-
-  if (typeof component === 'function') {
-    return component(options)
-  }
-
-  return component
+  return component(options)
 }

@@ -6,7 +6,9 @@ const verifyEmail = {
       name: 'email',
       label: 'Email',
       type: 'input',
-      disabled: true,
+      options: {
+        disabled: true,
+      },
     },
     {
       name: 'id',
@@ -27,7 +29,6 @@ const verifyEmail = {
     },
   ],
   url: '/email/send',
-  redirect: '/signin',
 }
 
 export default verifyEmail
