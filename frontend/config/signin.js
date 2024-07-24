@@ -15,6 +15,7 @@ const signin = {
       rules: [{ required: true, message: 'Please input your password!' }],
     },
   ],
+  url: '/user/login',
 }
 
 export default signin
