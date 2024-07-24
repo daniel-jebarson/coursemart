@@ -18,7 +18,13 @@ const signup = {
       name: 'phone',
       label: 'Mobile Number',
       type: 'input',
-      rules: [{ required: true, message: 'Please enter your Mobile Number!' }],
+      rules: [
+        { required: true, message: 'Please enter your Mobile Number!' },
+        {
+          pattern: /^[0-9]{10}$/,
+          message: 'Please enter a valid 10-digit mobile number!',
+        },
+      ],
     },
     {
       name: 'password',
@@ -27,10 +33,25 @@ const signup = {
       rules: [{ required: true, message: 'Please enter your password!' }],
     },
     {
-      name: 'passwordCopy',
+      name: 'confirmPassword',
       label: 'Confirm Password',
       type: 'password',
-      rules: [{ required: true, message: 'Please re-enter your password!' }],
+      dependencies: ['password'],
+      hasFeedback: true,
+      rules: [
+        {
+          required: true,
+          message: 'Please confirm your password!',
+        },
+        ({ getFieldValue }) => ({
+          validator(_, value) {
+            if (!value || getFieldValue('password') === value) {
+              return Promise.resolve()
+            }
+            return Promise.reject(new Error('The two passwords do not match!'))
+          },
+        }),
+      ],
     },
     {
       name: 'signupButton',

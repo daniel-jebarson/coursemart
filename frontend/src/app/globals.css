@@ -87,8 +87,12 @@ li {
   .ant-form-item-label {
   padding-bottom: 4px;
 }
-.ant-col .ant-input:not(.textarea) {
+.ant-col .ant-input:not(.textarea),
+:where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper {
   height: 40px;
+}
+:where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper input {
+  height: 30px !important;
 }
 :where(.css-dev-only-do-not-override-3mqfnx).ant-modal .ant-modal-header {
   margin-bottom: 30px;
@@ -103,6 +107,10 @@ li {
 }
 .ant-upload img {
   max-height: 100%;
+}
+.auth-container {
+  max-width: 500px;
+  margin: 40px auto;
 }
 @media (prefers-color-scheme: dark) {
   html {

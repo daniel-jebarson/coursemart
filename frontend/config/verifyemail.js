@@ -8,7 +8,14 @@ const verifyEmail = {
       type: 'input',
       disabled: true,
     },
-    { name: 'id', label: '', type: 'hidden', initialValue: 'id' },
+    {
+      name: 'id',
+      label: '',
+      type: 'hidden',
+      options: {
+        initialValue: 'id',
+      },
+    },
     {
       name: 'signupButton',
       type: 'button',
@@ -20,7 +27,7 @@ const verifyEmail = {
     },
   ],
   url: '/email/send',
-  //   redirect: '/signin',
+  redirect: '/signin',
 }
 
 export default verifyEmail
