@@ -8,49 +8,45 @@ export const fieldVisibility = (type) => {
 }
 
 export const formItemComponents = {
-  input: (options) => <Input disabled={options?.disabled} />,
-  password: (options) => <Input.Password disabled={options?.disabled} />,
-  email: (options) => <Input type='email' disabled={options?.disabled} />,
-  number: (options) => <Input type='number' disabled={options?.disabled} />,
-  textarea: (options) => <Input.TextArea disabled={options?.disabled} />,
+  input: (props) => <Input {...props} />,
+  password: (props) => <Input.Password {...props} />,
+  email: (props) => <Input type='email' {...props} />,
+  number: (props) => <Input type='number' {...props} />,
+  textarea: (props) => <Input.TextArea {...props} />,
   hidden: ({ initialValue }) => (
     <Input type='hidden' initialvalues={initialValue} />
   ),
-  select: (options) => (
+  select: (props) => (
     <Select>
-      {options.map((option) => (
-        <Select.Option key={option.value} value={option.value}>
-          {option.label}
+      {props.map((prop) => (
+        <Select.Option key={prop.value} value={prop.value}>
+          {prop.label}
         </Select.Option>
       ))}
     </Select>
   ),
-  radio: (options) => (
+  radio: (props) => (
     <Radio.Group>
-      {options.map((option) => (
-        <Radio key={option.value} value={option.value}>
-          {option.label}
+      {props.map((prop) => (
+        <Radio key={prop.value} value={prop.value}>
+          {prop.label}
         </Radio>
       ))}
     </Radio.Group>
   ),
-  checkbox: (options) => (
+  checkbox: (props) => (
     <Checkbox.Group>
-      {options.map((option) => (
-        <Checkbox key={option.value} value={option.value}>
-          {option.label}
+      {props.map((prop) => (
+        <Checkbox key={prop.value} value={prop.value}>
+          {prop.label}
         </Checkbox>
       ))}
     </Checkbox.Group>
   ),
-  date: (options) => <DatePicker />,
-  button: (options) => (
-    <Button
-      type={options.type}
-      htmlType={options.htmlType}
-      onClick={options.onClick}
-    >
-      {options.label}
+  date: (props) => <DatePicker {...props} />,
+  button: (props) => (
+    <Button type={props.type} htmlType={props.htmlType} onClick={props.onClick}>
+      {props.label}
     </Button>
   ),
 }
