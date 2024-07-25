@@ -10,7 +10,7 @@
     "dev": "nodemon src/index.js"
   },
   "engines": {
-    "node": "20.x"
+    "node": ">=20"
   },
   "keywords": [],
   "author": "",
