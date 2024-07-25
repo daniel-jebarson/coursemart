@@ -4,6 +4,7 @@ const UserModel = require("../models/user");
 const TokenModel = require("../models/token");
 const generateJWToken = require("../config/webtoken");
 const sendEmail = require("../utility/sendEmail");
+const emailTemplate = require("../constants/emailTemplate");
 require("dotenv").config();
 
 const sendEmailLink = asyncHandler(async (req, res) => {
@@ -36,11 +37,11 @@ const sendEmailLink = asyncHandler(async (req, res) => {
     const emailStatus = await sendEmail(
       email,
       "Activate your account in CourseMart!",
-      `Please click the below link for verification: \n\nThis link will expire in 10 minutes\n${
-        req.protocol
-      }://${req.get("host")}/email/${Token.userId}/verify/${
-        Token.token
-      }\n\n\n\tIf you have any queries regarding this email feel free to contact this email address`
+      emailTemplate(
+        `${req.protocol}://${req.get("host")}/email/${Token.userId}/verify/${
+          Token.token
+        }`
+      )
     );
 
     if (emailStatus.status === "success") {

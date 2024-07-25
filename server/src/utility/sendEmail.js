@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 const colors = require("colors");
 
-module.exports = async (email, subject, text) => {
+module.exports = async (email, subject, html) => {
   const { HOST, SERVICE, EMAIL_PORT, SECURE, USER, PASS } = process.env;
   try {
     const transporter = nodemailer.createTransport({
@@ -19,7 +19,7 @@ module.exports = async (email, subject, text) => {
       from: USER,
       to: email,
       subject: subject,
-      text: text,
+      html: html,
     });
 
     return {
