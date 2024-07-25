@@ -17,8 +17,8 @@ export const formItemComponents = {
     <Input type='hidden' initialvalues={initialValue} />
   ),
   select: (props) => (
-    <Select>
-      {props.map((prop) => (
+    <Select {...props}>
+      {props?.options?.map((prop) => (
         <Select.Option key={prop.value} value={prop.value}>
           {prop.label}
         </Select.Option>
@@ -26,8 +26,8 @@ export const formItemComponents = {
     </Select>
   ),
   radio: (props) => (
-    <Radio.Group>
-      {props.map((prop) => (
+    <Radio.Group {...props}>
+      {props?.options?.map((prop) => (
         <Radio key={prop.value} value={prop.value}>
           {prop.label}
         </Radio>
@@ -35,8 +35,8 @@ export const formItemComponents = {
     </Radio.Group>
   ),
   checkbox: (props) => (
-    <Checkbox.Group>
-      {props.map((prop) => (
+    <Checkbox.Group {...props}>
+      {props?.options?.map((prop) => (
         <Checkbox key={prop.value} value={prop.value}>
           {prop.label}
         </Checkbox>
@@ -45,8 +45,8 @@ export const formItemComponents = {
   ),
   date: (props) => <DatePicker {...props} />,
   button: (props) => (
-    <Button type={props.type} htmlType={props.htmlType} onClick={props.onClick}>
-      {props.label}
+    <Button type={props?.options?.type} htmlType={props?.options?.htmlType}>
+      {props?.options?.label}
     </Button>
   ),
 }
@@ -57,7 +57,7 @@ export const getFullUrl = (path) => {
 }
 
 export const renderFormItem = (field) => {
-  const { type, options } = field
+  const { type, options, onChange } = field
   const component = formItemComponents[type]
-  return component(options)
+  return component({ options, onChange })
 }

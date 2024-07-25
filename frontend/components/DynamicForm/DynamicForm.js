@@ -1,5 +1,5 @@
 'use client'
-
+import { useState } from 'react'
 import { Form, message } from 'antd'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
@@ -10,6 +10,7 @@ const DynamicForm = ({ config, form }) => {
   const { formName, layout, fields, url, redirect } = config
   const router = useRouter()
   const dispatch = useDispatch()
+  const [showAdditionalFields, setShowAdditionalFields] = useState(false)
 
   const onFinish = async (values) => {
     try {
@@ -40,6 +41,15 @@ const DynamicForm = ({ config, form }) => {
     console.log('Failed:', errorInfo)
   }
 
+  const handleOnChange = (field) => (e) => {
+    if (field.onChange) {
+      field.onChange(e, form)
+    }
+    if (field.name === 'role') {
+      setShowAdditionalFields(e.target.value === 'institute')
+    }
+  }
+
   return (
     <Form
       form={form}
@@ -50,19 +60,45 @@ const DynamicForm = ({ config, form }) => {
       layout={layout}
       scrollToFirstError
     >
-      {fields.map((field) => (
-        <Form.Item
-          key={field.name}
-          label={field.label}
-          name={field.name}
-          rules={field.rules}
-          colon={false}
-          style={fieldVisibility(field?.type)}
-          {...field}
-        >
-          {renderFormItem(field)}
-        </Form.Item>
-      ))}
+      {fields.map((field) => {
+        if (field.name === 'role') {
+          return (
+            <Form.Item
+              key={field.name}
+              label={field.label}
+              name={field.name}
+              rules={field.rules}
+              colon={false}
+              style={fieldVisibility(field?.type)}
+              {...field}
+            >
+              {renderFormItem({ ...field, onChange: handleOnChange(field) })}
+            </Form.Item>
+          )
+        }
+
+        if (
+          field.dependson &&
+          !showAdditionalFields &&
+          field.dependson === 'institute'
+        ) {
+          return null
+        }
+
+        return (
+          <Form.Item
+            key={field.name}
+            label={field.label}
+            name={field.name}
+            rules={field.rules}
+            colon={false}
+            style={fieldVisibility(field?.type)}
+            {...field}
+          >
+            {renderFormItem(field)}
+          </Form.Item>
+        )
+      })}
     </Form>
   )
 }
