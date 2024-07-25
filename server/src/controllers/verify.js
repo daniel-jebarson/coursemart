@@ -81,7 +81,7 @@ const verifyLink = asyncHandler(async (req, res) => {
             document.getElementById('timer').innerText = countdown;
             countdown--;
             if (countdown < 0) {
-              window.location.href = '${process.env.WEBSITE_URL}/login';
+              window.location.href = '${process.env.WEBSITE_URL}/signin';
             } else {
               setTimeout(updateTimer, 1000);
             }
