@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { Form } from 'antd'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { DynamicForm } from '@/components/index'
+import { DynamicForm, Header } from '@/components/index'
 import verifyEmail from '@/config/verifyemail'
 
 const VerifyEmail = () => {
@@ -21,9 +21,17 @@ const VerifyEmail = () => {
   }, [searchParams, form])
 
   return (
+
+    <div className='main'>
+    <Header />
     <div className='container auth-container'>
-      <DynamicForm config={verifyEmail} form={form} />
+      <div className='loginBlock'>
+        <h2>VerifyEmail</h2>
+        <DynamicForm config={verifyEmail} form={form} />
+      </div>
     </div>
+    </div>
+
   )
 }
 

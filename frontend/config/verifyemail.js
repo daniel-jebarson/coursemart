@@ -25,6 +25,8 @@ const verifyEmail = {
         label: 'submit',
         type: 'primary',
         htmlType: 'submit',
+        className: 'fullWidth mainBtn',
+        
       },
     },
   ],

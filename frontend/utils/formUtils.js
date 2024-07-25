@@ -45,7 +45,7 @@ export const formItemComponents = {
   ),
   date: (props) => <DatePicker {...props} />,
   button: (props) => (
-    <Button type={props?.options?.type} htmlType={props?.options?.htmlType}>
+    <Button type={props?.options?.type} htmlType={props?.options?.htmlType} className={props?.options.className}>
       {props?.options?.label}
     </Button>
   ),
