@@ -13,33 +13,38 @@ const socialProfileSchema = new mongoose.Schema({
   },
 });
 
-const facultySchema = new mongoose.Schema({
-  InstituteId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const facultySchema = new mongoose.Schema(
+  {
+    InstituteId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    About: {
+      type: String,
+      trim: true,
+    },
+    experience: {
+      type: String,
+      trim: true,
+    },
+    qualification: {
+      type: String,
+      trim: true,
+    },
+    socialProfile: {
+      type: [socialProfileSchema],
+    },
   },
-  name: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  About: {
-    type: String,
-    trim: true,
-  },
-  experience: {
-    type: String,
-    trim: true,
-  },
-  qualification: {
-    type: String,
-    trim: true,
-  },
-  socialProfile: {
-    type: [socialProfileSchema],
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Faculties =
   mongoose.models.Faculty || mongoose.model("Faculty", facultySchema);
