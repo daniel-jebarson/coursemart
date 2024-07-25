@@ -5,6 +5,7 @@ const TokenModel = require("../models/token");
 const generateJWToken = require("../config/webtoken");
 const sendEmail = require("../utility/sendEmail");
 const emailTemplate = require("../constants/emailTemplate");
+const verifyPage = require("../constants/verifyEmail");
 require("dotenv").config();
 
 const sendEmailLink = asyncHandler(async (req, res) => {
@@ -72,32 +73,7 @@ const verifyLink = asyncHandler(async (req, res) => {
     });
     await TokenModel.deleteOne({ _id: tokenFound._id });
 
-    res.status(200).send(
-      `   
-     <html>
-      <head>
-        <script>
-          let countdown = 5;
-          function updateTimer() {
-            document.getElementById('timer').innerText = countdown;
-            countdown--;
-            if (countdown < 0) {
-              window.location.href = '${process.env.WEBSITE_URL}/signin';
-            } else {
-              setTimeout(updateTimer, 1000);
-            }
-          }
-          window.onload = updateTimer;
-        </script>
-      </head>
-      <body>
-        <h1>Email verified successfully!</h1>
-        <p>Redirecting in <span id="timer">5</span> seconds...</p>
-        <p>If not redirected, <a href="${process.env.WEBSITE_URL}/login">click here to redirect</a>.</p>
-      </body>
-    </html>
-    `
-    );
+    res.status(200).send(verifyPage(`${process.env.WEBSITE_URL}/signin`));
   } catch (error) {
     console.log(error);
     throw new CustomError("Invalid link", 400);
