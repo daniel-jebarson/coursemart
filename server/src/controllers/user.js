@@ -89,7 +89,41 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
+const updateUserData = asyncHandler(async (req, res) => {
+  const { userId, name, phone } = req.body;
+
+  const user = await UserModel.findOne({
+    _id: userId,
+  });
+
+  if (!user) {
+    throw new CustomError("Specify the InstituteId!", 400);
+  }
+
+  try {
+    const selectUser = await UserModel.findByIdAndUpdate(
+      userId,
+      {
+        name: name,
+        phone: phone,
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      _id: selectUser._id,
+      name: selectUser.name,
+      email: selectUser.email,
+      phone: selectUser.phone,
+      role: selectUser.role,
+      verified: selectUser.verified,
+    });
+  } catch (error) {
+    throw new CustomError("Server Error", 500);
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
+  updateUserData,
 };
