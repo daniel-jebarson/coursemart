@@ -23,7 +23,7 @@ const signup = {
         console.log(form, 'fieldEffects')
       },
     },
-  
+
     {
       name: 'phone',
       label: 'Mobile Number',
@@ -102,7 +102,7 @@ const signup = {
       rules: [
         {
           required: true,
-          message: 'Please input value for Additional Field 1!',
+          message: 'Please enter a valid URL',
         },
         {
           pattern: new RegExp(
@@ -128,7 +128,6 @@ const signup = {
         htmlType: 'submit',
         className: 'fullWidth mainBtn',
       },
-    
     },
   ],
   url: '/user/register',
