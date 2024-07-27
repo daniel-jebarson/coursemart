@@ -46,7 +46,11 @@ export const formItemComponents = {
   ),
   date: (props) => <DatePicker {...props} />,
   button: (props) => (
-    <Button type={props?.options?.type} htmlType={props?.options?.htmlType} className={props?.options.className}>
+    <Button
+      type={props?.options?.type}
+      htmlType={props?.options?.htmlType}
+      className={props?.options.className}
+    >
       {props?.options?.label}
     </Button>
   ),
@@ -63,7 +67,7 @@ export const renderFormItem = (field) => {
   return component({ options, onChange })
 }
 
-export const makeAPiCall = async (url, values) => {
+export const makeApiCall = async (url, values) => {
   try {
     const response = await axios.post(getFullUrl(url), values, {
       headers: {
