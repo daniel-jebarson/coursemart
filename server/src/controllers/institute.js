@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const InstituteModel = require("../models/institute");
+const UserModel = require("../models/user");
 
 const addInstituteData = asyncHandler(async (req, res) => {
   const { InstituteId, address, website, locations, instLogo } = req.body;
@@ -10,6 +11,15 @@ const addInstituteData = asyncHandler(async (req, res) => {
   }
 
   try {
+    const inst = await UserModel.findOne({
+      _id: InstituteId,
+      role: "institute",
+    });
+
+    if (!inst) {
+      throw new CustomError("Institute with that id not found!", 400);
+    }
+
     const newInstituteInfo = await InstituteModel.create({
       InstituteId,
       address,
@@ -28,6 +38,31 @@ const addInstituteData = asyncHandler(async (req, res) => {
   }
 });
 
+const updateInstituteData = asyncHandler(async (req, res) => {
+  const { InstituteId, address, website, locations, instLogo } = req.body;
+
+  if (!InstituteId) {
+    throw new CustomError("Specify the InstituteId!", 400);
+  }
+
+  try {
+    const InstituteInfo = await InstituteModel.findOneAndUpdate(
+      { InstituteId: InstituteId },
+      {
+        address: address,
+        website: website,
+        locations: locations,
+        instLogo: instLogo,
+      },
+      { new: true, upsert: true }
+    );
+    res.status(200).json(InstituteInfo);
+  } catch (error) {
+    throw new CustomError("Server Error", 500);
+  }
+});
+
 module.exports = {
   addInstituteData,
+  updateInstituteData,
 };

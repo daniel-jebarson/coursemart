@@ -3,6 +3,12 @@ const signup = {
   layout: 'vertical',
   fields: [
     {
+      name: 'name',
+      label: 'Name',
+      type: 'input',
+      rules: [{ required: true, message: 'Please enter your Name!' }],
+    },
+    {
       name: 'email',
       label: 'Email',
       type: 'input',
@@ -17,12 +23,7 @@ const signup = {
         console.log(form, 'fieldEffects')
       },
     },
-    {
-      name: 'name',
-      label: 'Name',
-      type: 'input',
-      rules: [{ required: true, message: 'Please enter your Name!' }],
-    },
+  
     {
       name: 'phone',
       label: 'Mobile Number',
@@ -125,7 +126,9 @@ const signup = {
         label: 'submit',
         type: 'primary',
         htmlType: 'submit',
+        className: 'fullWidth mainBtn',
       },
+    
     },
   ],
   url: '/user/register',

@@ -22,6 +22,10 @@ app.use("/course", courseRoutes);
 app.use("/institute", instituteRoutes);
 app.use("/email", EmailRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
 app.use(errorHandler);
 app.use(NotFound);
 
@@ -36,10 +40,6 @@ const start = async () => {
     process.exit();
   }
 };
-
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
 
 start();
 

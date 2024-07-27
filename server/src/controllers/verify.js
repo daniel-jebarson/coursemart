@@ -4,6 +4,8 @@ const UserModel = require("../models/user");
 const TokenModel = require("../models/token");
 const generateJWToken = require("../config/webtoken");
 const sendEmail = require("../utility/sendEmail");
+const emailTemplate = require("../constants/emailTemplate");
+const verifyPage = require("../constants/verifyEmail");
 require("dotenv").config();
 
 const sendEmailLink = asyncHandler(async (req, res) => {
@@ -36,11 +38,11 @@ const sendEmailLink = asyncHandler(async (req, res) => {
     const emailStatus = await sendEmail(
       email,
       "Activate your account in CourseMart!",
-      `Please click the below link for verification: \n\nThis link will expire in 10 minutes\n${
-        req.protocol
-      }://${req.get("host")}/email/${Token.userId}/verify/${
-        Token.token
-      }\n\n\n\tIf you have any queries regarding this email feel free to contact this email address`
+      emailTemplate(
+        `${req.protocol}://${req.get("host")}/email/${Token.userId}/verify/${
+          Token.token
+        }`
+      )
     );
 
     if (emailStatus.status === "success") {
@@ -71,32 +73,7 @@ const verifyLink = asyncHandler(async (req, res) => {
     });
     await TokenModel.deleteOne({ _id: tokenFound._id });
 
-    res.status(200).send(
-      `   
-     <html>
-      <head>
-        <script>
-          let countdown = 5;
-          function updateTimer() {
-            document.getElementById('timer').innerText = countdown;
-            countdown--;
-            if (countdown < 0) {
-              window.location.href = '${process.env.WEBSITE_URL}/login';
-            } else {
-              setTimeout(updateTimer, 1000);
-            }
-          }
-          window.onload = updateTimer;
-        </script>
-      </head>
-      <body>
-        <h1>Email verified successfully!</h1>
-        <p>Redirecting in <span id="timer">5</span> seconds...</p>
-        <p>If not redirected, <a href="${process.env.WEBSITE_URL}/login">click here to redirect</a>.</p>
-      </body>
-    </html>
-    `
-    );
+    res.status(200).send(verifyPage(`${process.env.WEBSITE_URL}/signin`));
   } catch (error) {
     console.log(error);
     throw new CustomError("Invalid link", 400);
