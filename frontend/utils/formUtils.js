@@ -1,4 +1,5 @@
 import { Input, Button, Select, Radio, Checkbox, DatePicker } from 'antd'
+import axios from 'axios'
 
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
@@ -60,4 +61,17 @@ export const renderFormItem = (field) => {
   const { type, options, onChange } = field
   const component = formItemComponents[type]
   return component({ options, onChange })
+}
+
+export const makeAPiCall = async (url, values) => {
+  try {
+    const response = await axios.post(getFullUrl(url), values, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    return response
+  } catch (error) {
+    throw error
+  }
 }

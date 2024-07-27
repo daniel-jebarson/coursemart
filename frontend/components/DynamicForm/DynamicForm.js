@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { Form, message } from 'antd'
+import { pathOr } from 'ramda'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
 import { setUserDetails } from '@/store/userSlice'
-import { fieldVisibility, getFullUrl, renderFormItem } from '@/utils/formUtils'
+import { fieldVisibility, renderFormItem, makeApiCall } from '@/utils/formUtils'
 
 const DynamicForm = ({ config, form }) => {
   const { formName, layout, fields, url, redirect } = config
@@ -14,22 +15,11 @@ const DynamicForm = ({ config, form }) => {
 
   const onFinish = async (values) => {
     try {
-      const response = await fetch(getFullUrl(url), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-      const data = await response.json()
+      const response = await makeApiCall(url, values)
+      const data = pathOr(null, ['data'], response)
       dispatch(setUserDetails(data))
-      if (response.ok) {
-        message.success(data.message)
-        if (formName === 'signup' && !data?.verified) {
-          router.push(`${redirect}?id=${data._id}&email=${data.email}`)
-        }
-      } else {
-        message.error(`Error: ${data.message}`)
+      if (formName === 'signup' && !data?.verified) {
+        router.push(redirect)
       }
     } catch (error) {
       message.error('Something failed, please check console')
@@ -61,27 +51,24 @@ const DynamicForm = ({ config, form }) => {
       scrollToFirstError
     >
       {fields.map((field) => {
+        const { fieldEffects, dependsOn, ...props } = field
+        if (fieldEffects) {
+          fieldEffects(form)
+        }
         if (field.name === 'role') {
           return (
             <Form.Item
               key={field.name}
-              label={field.label}
-              name={field.name}
-              rules={field.rules}
               colon={false}
               style={fieldVisibility(field?.type)}
-              {...field}
+              {...props}
             >
-              {renderFormItem({ ...field, onChange: handleOnChange(field) })}
+              {renderFormItem({ ...props, onChange: handleOnChange(field) })}
             </Form.Item>
           )
         }
 
-        if (
-          field.dependson &&
-          !showAdditionalFields &&
-          field.dependson === 'institute'
-        ) {
+        if (dependsOn && !showAdditionalFields && dependsOn === 'institute') {
           return null
         }
 

@@ -13,6 +13,9 @@ const signup = {
           message: 'The input is not a valid email!',
         },
       ],
+      fieldEffects: (form) => {
+        console.log(form, 'fieldEffects')
+      },
     },
     {
       name: 'name',
@@ -113,7 +116,7 @@ const signup = {
           message: 'Please enter a valid URL',
         },
       ],
-      dependson: 'institute',
+      dependsOn: 'institute',
     },
     {
       name: 'signupButton',
