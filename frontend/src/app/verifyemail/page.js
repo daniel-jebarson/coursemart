@@ -9,7 +9,7 @@ import verifyEmail from '@/config/verifyemail'
 
 const VerifyEmail = () => {
   const signupFormData = useSelector((state) => state?.user?.signupFormData)
-  const id = pathOr(null, ['id'], signupFormData)
+  const id = pathOr(null, ['_id'], signupFormData)
   const email = pathOr(null, ['email'], signupFormData)
   const [form] = Form.useForm()
 
