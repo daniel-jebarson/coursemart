@@ -1,7 +1,9 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const UserModel = require("../models/user");
+const ResetPassModel = require("../models/resetPassword");
 const generateJWToken = require("../config/webtoken");
+const bcrypt = require("bcrypt");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, phone, role } = req.body;
@@ -122,8 +124,49 @@ const updateUserData = asyncHandler(async (req, res) => {
   }
 });
 
+const updateUserPassword = asyncHandler(async (req, res) => {
+  const { id, email, resetToken, password } = req.body;
+
+  const user = await UserModel.findOne({
+    email: email,
+  });
+
+  if (!user) {
+    throw new CustomError("Invalid email id!", 400);
+  }
+
+  const Reset = await ResetPassModel.deleteOne({
+    $and: [{ _id: id }, { resetToken: resetToken }],
+  });
+
+  if (Reset.deletedCount !== 1) {
+    throw new CustomError("Invalid Reset Token or Reset id!", 400);
+  }
+
+  try {
+    const selectUser = await UserModel.findOneAndUpdate(
+      { email: email },
+      {
+        password: password,
+      },
+      { new: true }
+    );
+    res.status(200).json({
+      _id: selectUser._id,
+      name: selectUser.name,
+      email: selectUser.email,
+      phone: selectUser.phone,
+      role: selectUser.role,
+      verified: selectUser.verified,
+    });
+  } catch (error) {
+    throw new CustomError("Server Error", 500);
+  }
+});
+
 module.exports = {
   registerUser,
   loginUser,
   updateUserData,
+  updateUserPassword,
 };
