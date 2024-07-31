@@ -1,5 +1,6 @@
 import { Input, Button, Select, Radio, Checkbox, DatePicker } from 'antd'
 import axios from 'axios'
+import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
 
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
@@ -62,9 +63,9 @@ export const getFullUrl = (path) => {
 }
 
 export const renderFormItem = (field) => {
-  const { type, options, onChange } = field
+  const { type } = field
   const component = formItemComponents[type]
-  return component({ options, onChange })
+  return component(field)
 }
 
 export const makeApiCall = async (url, values) => {
@@ -77,5 +78,29 @@ export const makeApiCall = async (url, values) => {
     return response
   } catch (error) {
     throw error
+  }
+}
+
+export const redirectToURL = (data, formName, dispatch, router, redirect) => {
+  const url = {
+    signup: () => {
+      dispatch(setSignupDetails(data))
+      router.push(redirect)
+    },
+    signin: () => {
+      dispatch(setSigninDetails(data))
+      if (data?.role === 'institute') {
+        router.push('/dashboard')
+      } else {
+        router.push(redirect)
+      }
+    },
+    verifyEmail: () => {},
+  }
+
+  if (url[formName]) {
+    return url[formName]()
+  } else {
+    router.push(`/${formName}`)
   }
 }

@@ -6,9 +6,7 @@ const verifyEmail = {
       name: 'email',
       label: 'Email',
       type: 'input',
-      options: {
-        disabled: true,
-      },
+      disabled: true,
     },
     {
       name: 'id',
@@ -26,7 +24,6 @@ const verifyEmail = {
         type: 'primary',
         htmlType: 'submit',
         className: 'fullWidth mainBtn',
-        
       },
     },
   ],

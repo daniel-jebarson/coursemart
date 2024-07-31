@@ -8,9 +8,9 @@ import { DynamicForm, Header } from '@/components/index'
 import verifyEmail from '@/config/verifyemail'
 
 const VerifyEmail = () => {
-  const signupFormData = useSelector((state) => state?.user?.signupFormData)
-  const id = pathOr(null, ['_id'], signupFormData)
-  const email = pathOr(null, ['email'], signupFormData)
+  const signupDetails = useSelector((state) => state?.user?.signupDetails)
+  const id = pathOr(null, ['_id'], signupDetails)
+  const email = pathOr(null, ['email'], signupDetails)
   const [form] = Form.useForm()
 
   useEffect(() => {

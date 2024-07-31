@@ -32,7 +32,7 @@ const signin = {
     },
   ],
   url: '/user/login',
-  redirect: '/dashboard',
+  redirect: '/courses',
 }
 
 export default signin

@@ -4,8 +4,12 @@ import { Form, message } from 'antd'
 import { pathOr } from 'ramda'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
-import { setUserDetails } from '@/store/userSlice'
-import { fieldVisibility, renderFormItem, makeApiCall } from '@/utils/formUtils'
+import {
+  fieldVisibility,
+  renderFormItem,
+  makeApiCall,
+  redirectToURL,
+} from '@/utils/formUtils'
 
 const DynamicForm = ({ config, form }) => {
   const { formName, layout, fields, url, redirect } = config
@@ -17,12 +21,14 @@ const DynamicForm = ({ config, form }) => {
     try {
       const response = await makeApiCall(url, values)
       const data = pathOr(null, ['data'], response)
-      dispatch(setUserDetails(data))
-      if (formName === 'signup' && !data?.verified) {
-        router.push(redirect)
-      }
+      redirectToURL(data, formName, dispatch, router, redirect)
     } catch (error) {
-      message.error('Something failed, please check console')
+      const errorMsg = pathOr(
+        'Something failed, please check console',
+        ['response', 'data', 'msg'],
+        error
+      )
+      message.error(errorMsg)
       console.error(error)
     }
   }
