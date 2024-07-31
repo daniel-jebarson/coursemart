@@ -13,54 +13,52 @@ const Dashboard = ({ courses }) => {
   const handleEdit = () => console.log('Edit clicked')
 
   return (
-    <div>
-      <div className={styles.main}>
-        <div className={`${styles.header} flex center between`}>
-          <h2>Dashboard</h2>
-          <div className='flex center '>
-            <div className={styles.search}></div>
-            <div className=''>
-              <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>
-                U
-              </Avatar>
-            </div>
+    <div className={styles.main}>
+      <div className={`${styles.header} flex center between`}>
+        <h2>Dashboard</h2>
+        <div className='flex center'>
+          <div className={styles.search}></div>
+          <div className=''>
+            <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>
+              U
+            </Avatar>
           </div>
         </div>
-        <Sidebar />
+      </div>
+      <Sidebar />
 
-        <div className={styles.body}>
-          <div className={`${styles.card} flex between`}>
-            <div className={styles.box}>
-              <label>Total Courses</label> <br />
-              <b>24</b>
-            </div>
-            <div className={styles.box}>
-              <label>Total Students</label> <br />
-              <b>600</b>
-            </div>
-            <div className={styles.box}>
-              <label>Total Sales</label> <br />
-              <b>200</b>
-            </div>
-            <div className={styles.box}>
-              <label>Total Revenue</label> <br />
-              <b>1,40,000 INR</b>
-            </div>
+      <div className={styles.body}>
+        <div className={`${styles.card} flex between`}>
+          <div className={styles.box}>
+            <label>Total Courses</label> <br />
+            <b>24</b>
           </div>
-
-          <div className='flex between mb-2'>
-            <h2>Course List</h2>
-            <Link href='/createcourse'>
-              <Button size='large' type='primary'>
-                Create Course
-              </Button>
-            </Link>
+          <div className={styles.box}>
+            <label>Total Students</label> <br />
+            <b>600</b>
           </div>
-          <DataTable
-            data={courses}
-            columns={getColumns(handleEdit, handleDelete)}
-          />
+          <div className={styles.box}>
+            <label>Total Sales</label> <br />
+            <b>200</b>
+          </div>
+          <div className={styles.box}>
+            <label>Total Revenue</label> <br />
+            <b>1,40,000 INR</b>
+          </div>
         </div>
+
+        <div className='flex between mb-2'>
+          <h2>Course List</h2>
+          <Link href='/createcourse'>
+            <Button size='large' type='primary'>
+              Create Course
+            </Button>
+          </Link>
+        </div>
+        <DataTable
+          data={courses}
+          columns={getColumns(handleEdit, handleDelete)}
+        />
       </div>
     </div>
   )
