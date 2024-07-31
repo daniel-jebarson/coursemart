@@ -1,11 +1,10 @@
 'use client'
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react'
+import Link from 'next/link'
 import { Button, Avatar } from 'antd'
 import DataTable from '@/components/DataTable/Datatable'
 import { Sidebar } from '@/components/index'
 import { getColumns } from '@/utils/dashboard'
-
 import '../globals.css'
 import styles from './dashboard.module.css'
 
@@ -51,9 +50,11 @@ const Dashboard = ({ courses }) => {
 
           <div className='flex between mb-2'>
             <h2>Course List</h2>
-            <Button size='large' type='primary'>
-              Create Course
-            </Button>
+            <Link href='/createcourse'>
+              <Button size='large' type='primary'>
+                Create Course
+              </Button>
+            </Link>
           </div>
           <DataTable
             data={courses}
