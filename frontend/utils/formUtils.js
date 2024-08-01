@@ -89,6 +89,7 @@ export const redirectToURL = (data, formName, dispatch, router, redirect) => {
     },
     signin: () => {
       dispatch(setSigninDetails(data))
+      document.cookie = `token=${data.token}; path=/`
       if (data?.role === 'institute') {
         router.push('/dashboard')
       } else {

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { Button, Avatar } from 'antd'
 import DataTable from '@/components/DataTable/Datatable'
-import { Sidebar } from '@/components/index'
+import { Sidebar, SignoutBtn, Auth } from '@/components/index'
 import { getColumns } from '@/utils/dashboard'
 import '../globals.css'
 import styles from './dashboard.module.css'
@@ -19,6 +19,7 @@ const Dashboard = ({ courses }) => {
         <div className='flex center'>
           <div className={styles.search}></div>
           <div className=''>
+            <SignoutBtn />
             <Avatar style={{ backgroundColor: '#fde3cf', color: '#f56a00' }}>
               U
             </Avatar>
@@ -64,4 +65,4 @@ const Dashboard = ({ courses }) => {
   )
 }
 
-export default Dashboard
+export default Auth(Dashboard)

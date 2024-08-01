@@ -1,8 +1,20 @@
+import jwt from 'jsonwebtoken'
+
 export const requiredLabel = (label) => (
   <span>
     {label} <span style={{ color: 'red' }}>*</span>
   </span>
 )
+
+// utils/authUtils.js
+export const verifyToken = async (token) => {
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    return decoded
+  } catch (error) {
+    return false
+  }
+}
 
 // saving redux to local storage and reading it from local storage on page refresh
 
