@@ -1,11 +1,13 @@
 'use client'
 import { Menu } from 'antd'
+import React, {useState} from 'react'
 import {
   AppstoreOutlined,
   MailOutlined,
   SettingOutlined,
 } from '@ant-design/icons'
 import styles from './navbar.module.css'
+import MenuBar from '@/components/MenuBar/menuBar'
 
 const getItem = (label, key, icon, children, type) => ({
   key,
@@ -52,17 +54,12 @@ const NavBar = () => {
   const onClick = (e) => {
     console.log('click', e)
   }
-
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={`${styles.nav} flex`}>
-      <div className={styles.navItem}>
+      <div className={styles.navItem} onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
         <span> Courses</span>
-        <Menu
-          onClick={onClick}
-          className={styles.menubar}
-          mode='vertical'
-          items={items}
-        />
+        {isOpen &&   <MenuBar />}
       </div>
       <div className={styles.navItem}>
         <span>Institutes</span>

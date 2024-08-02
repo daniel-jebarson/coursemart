@@ -1,0 +1,30 @@
+.menubar{
+    position: absolute;
+    background: #fff;
+    min-width: 640px;
+    padding: 16px;
+    box-shadow: 0 3px 10px 3px #c8c8c863;
+    border-radius: 0 0 6px 6px;
+    
+}
+.menubar  h3 {
+    line-height: 20px;
+    margin-bottom: 20px;
+}
+.menubar ul {
+    display: flex;    flex-wrap: wrap;
+}
+
+.menubar li {
+    list-style-type: none;
+     width: 25%;
+    line-height: 24px;
+    margin-bottom: 15px;
+    padding-right: 10px;
+}
+
+.menubar li a {color: #222;
+    &:hover {
+        color: #007bff;
+    }
+}

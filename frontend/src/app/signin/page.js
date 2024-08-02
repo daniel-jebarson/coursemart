@@ -14,7 +14,7 @@ const Signin = () => {
       <div className='loginBlock'>
         <h2>Signin</h2>
         <DynamicForm config={signin} form={form} />
-        <h6 className='lightText text-center mb-2'>By signing up, you agree to coursemart.com Terms of Service & Privacy Policy.</h6>
+        <h4 className='lightText text-center mb-2'><Link href="/forgotpassword">Forgot password?</Link></h4>
         <p className='text-center'>Doesn’t have an account? <Link href="/signup">Signup</Link></p>
       </div>
     </div>
