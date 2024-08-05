@@ -14,7 +14,7 @@ export const sidebarMenu = [
     icon: <MailOutlined />,
   },
   {
-    label: <Link href='/courses'>My Courses</Link>,
+    label: <Link href='/createcourse'>Create Course</Link>,
     key: 'courses',
     icon: <AppstoreOutlined />,
   },
