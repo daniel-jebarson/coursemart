@@ -32,39 +32,53 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
 .container {
   max-width: 1200px;
   margin: auto;
 }
+
 .h-6 {
   height: 60px;
 }
+
 .main {
   padding-top: 60px;
   padding-bottom: 100px;
   min-height: 100vh;
 }
-a {color: #1677ff;}
+
+a {
+  color: #1677ff;
+}
+
 ul,
 li {
   list-style: none;
 }
+
 .mb-2 {
   margin-bottom: 20px;
 }
+
 .text-center {
   text-align: center;
 }
+
 .fullWidth {
   width: 100%;
 }
-.mainBtn{
+
+.mainBtn {
   height: 46px !important;
   font-size: 20px;
 }
-.sidebar
-  :where(.css-dev-only-do-not-override-3mqfnx).ant-menu-light
-  .ant-menu-item-selected {
+
+body :where(.css-dev-only-do-not-override-98ntnt).ant-layout .ant-layout-sider {
+  background-color: white;
+}
+
+body :where(.css-dev-only-do-not-override-98ntnt).ant-layout {
   background-color: #ffffff;
 }
 
@@ -73,6 +87,7 @@ li {
   background-color: #fff;
   border: 1px solid #ededed;
 }
+
 :where(.css-dev-only-do-not-override-3mqfnx).ant-collapse
   .ant-collapse-content {
   border: 0;
@@ -83,6 +98,7 @@ li {
   > .ant-collapse-content-box {
   padding: 0px 16px;
 }
+
 .ant-collapse-header {
   font-weight: 600;
 }
@@ -99,13 +115,16 @@ li {
   .ant-form-item-label {
   padding-bottom: 4px;
 }
+
 .ant-col .ant-input:not(.textarea),
 :where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper {
   height: 40px;
 }
+
 :where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper input {
   height: 30px !important;
 }
+
 :where(.css-dev-only-do-not-override-3mqfnx).ant-modal .ant-modal-header {
   margin-bottom: 30px;
 }
@@ -117,29 +136,48 @@ li {
   width: 100%;
   height: 300px;
 }
+
+body
+  :where(
+    .css-dev-only-do-not-override-98ntnt
+  ).ant-menu-light.ant-menu-root.ant-menu-vertical {
+  border: 0;
+}
+
+body :where(.css-dev-only-do-not-override-98ntnt).ant-menu-light {
+  background-color: #f1f1f1;
+}
+
 .ant-upload img {
   max-height: 100%;
 }
+
 .auth-container {
   max-width: 500px;
   margin: 40px auto;
 }
+
 .main {
   padding-top: 60px;
   background: #f1f1f1;
 }
+
 .loginBlock {
   background: #fff;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  h2{margin-bottom: 20px;}
+  h2 {
+    margin-bottom: 20px;
+  }
 }
+
 .lightText {
   font-weight: 400;
-    color: rgb(34, 43, 69);
-    font-size: 10px;
+  color: rgb(34, 43, 69);
+  font-size: 10px;
 }
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

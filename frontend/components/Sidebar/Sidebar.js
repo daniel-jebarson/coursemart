@@ -22,10 +22,8 @@ const Sidebar = () => {
   }, [pathname])
 
   return (
-    <div className={`${styles.menubar} sidebar`}>
-      <div className={styles.logo}>
-        <Logo />
-      </div>
+    <div className={styles.menubar}>
+      <Logo className={styles.logo} width={170} />
       <Menu
         onClick={onClick}
         selectedKeys={[current]}

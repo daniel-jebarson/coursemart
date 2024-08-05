@@ -1,19 +1,17 @@
 import Link from 'next/link'
-import styles from './logo.module.css'
 import { Image } from 'antd'
 
-const Logo = () => {
+const Logo = (props) => {
   return (
-    <div className={styles.logo}>
+    <div className={props.className}>
       <Link href='/'>
-      <Image
-        width={200}
-        height={40}
-        src={'https://i.imgur.com/yUpYCFp.png'}
-        preview={false}
-      />
+        <Image
+          width={props.width}
+          height={40}
+          src={'https://i.imgur.com/yUpYCFp.png'}
+          preview={false}
+        />
       </Link>
-     
     </div>
   )
 }

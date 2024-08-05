@@ -1,0 +1,25 @@
+.content {
+  padding: 20px;
+  overflow: initial;
+  margin: 0 0 0 200px;
+  transition: all 0.2s, background 0s;
+}
+
+.contentCollapsed {
+  padding: 20px;
+  overflow: initial;
+  margin: 0 0 0 80px;
+  transition: all 0.2s, background 0s;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+.avatar {
+  background-color: #fde3cf;
+  color: #f56a00;
+}

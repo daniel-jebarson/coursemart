@@ -3,20 +3,34 @@ const createCourse = {
   layout: 'vertical',
   fields: [
     {
-      name: 'email',
-      label: 'Email',
+      name: 'title',
+      label: 'Course Title',
       type: 'input',
-      options: {
-        disabled: true,
-      },
+      rules: [{ required: true, message: 'Please enter course title name!' }],
     },
     {
-      name: 'id',
-      label: '',
-      type: 'hidden',
-      options: {
-        initialValue: 'id',
-      },
+      name: 'description',
+      label: 'Course Description',
+      type: 'input',
+      rules: [{ required: true, message: 'Please enter your Name!' }],
+    },
+    {
+      name: 'price',
+      label: 'Course Price',
+      type: 'input',
+      rules: [{ required: true, message: 'Please enter your Name!' }],
+    },
+    {
+      name: 'duration',
+      label: 'Course Duration',
+      type: 'input',
+      rules: [{ required: true, message: 'Please enter your Name!' }],
+    },
+    {
+      name: 'language',
+      label: 'Course Language',
+      type: 'input',
+      rules: [{ required: true, message: 'Please enter your Name!' }],
     },
     {
       name: 'signupButton',
@@ -29,7 +43,6 @@ const createCourse = {
       },
     },
   ],
-  url: '/email/send',
 }
 
 export default createCourse

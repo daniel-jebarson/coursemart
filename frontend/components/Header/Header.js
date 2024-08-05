@@ -8,7 +8,7 @@ function Header() {
       <div className='container'>
         <div className='flex between center h-6'>
           <div className='flex center'>
-            <Logo />
+            <Logo className={styles.logo} width={200} />
             <NavBar />
           </div>
           <div className='flex center'>
