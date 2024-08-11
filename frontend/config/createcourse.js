@@ -12,7 +12,7 @@ const createCourse = {
     {
       name: 'description',
       label: 'Course Description',
-      type: 'input',
+      type: 'textarea',
       rules: [{ required: true, message: 'Please enter course description' }],
       className: 'half-width',
     },
