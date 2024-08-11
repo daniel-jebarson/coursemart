@@ -11,7 +11,7 @@ import {
   redirectToURL,
 } from '@/utils/formUtils'
 
-const DynamicForm = ({ config, form }) => {
+const DynamicForm = ({ config, form, className = '' }) => {
   const { formName, layout, fields, url, redirect } = config
   const router = useRouter()
   const dispatch = useDispatch()
@@ -55,6 +55,7 @@ const DynamicForm = ({ config, form }) => {
       autoComplete='off'
       layout={layout}
       scrollToFirstError
+      className={className}
     >
       {fields.map((field) => {
         const { fieldEffects, dependsOn, ...props } = field

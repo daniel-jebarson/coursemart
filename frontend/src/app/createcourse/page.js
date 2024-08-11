@@ -8,9 +8,11 @@ const CreateCourse = () => {
   const [form] = Form.useForm()
   return (
     <CustomLayout title='Create Course'>
-      <div className={styles.body}>
-        <DynamicForm config={createCourse} />
-      </div>
+      <DynamicForm
+        form={form}
+        config={createCourse}
+        className='field-container'
+      />
     </CustomLayout>
   )
 }
