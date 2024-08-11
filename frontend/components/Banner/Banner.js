@@ -1,7 +1,7 @@
 import { Image } from 'antd'
 import styles from './banner.module.css'
 
-function Banner() {
+const Banner = () => {
   return (
     <div className={styles.banner}>
       <div className='container'>

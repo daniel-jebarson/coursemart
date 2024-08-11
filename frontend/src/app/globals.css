@@ -65,7 +65,7 @@ li {
   text-align: center;
 }
 
-.fullWidth {
+.full-width {
   width: 100%;
 }
 
@@ -181,32 +181,32 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-menu-light {
 .field-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 16px; /* Adjust the gap between fields */
-}
+  gap: 0 16px;
 
-.field-container .full-width {
-  flex: 0 0 100%;
-}
+  .full-width {
+    flex: 0 0 100%;
+  }
 
-.field-container .half-width {
-  flex: 0 0 calc(50% - 8px); /* Adjust to fit two fields in a row */
-}
+  .half-width {
+    flex: 0 0 calc(50% - 8px); /* Adjust to fit two fields in a row */
+  }
 
-.field-container .third-width {
-  flex: 0 0 calc(33% - 6.35px); /* Adjust to fit three fields in a row */
-}
+  .third-width {
+    flex: 0 0 calc(33% - 7px); /* Adjust to fit three fields in a row */
+  }
 
-.field-container .quarter-width {
-  flex: 0 0 calc(25% - 12px); /* Adjust to fit four fields in a row */
-}
+  .quarter-width {
+    flex: 0 0 calc(25% - 12px); /* Adjust to fit four fields in a row */
+  }
 
-.field-container :where(.css-dev-only-do-not-override-98ntnt).ant-form-item {
-  margin-bottom: 16px;
-}
+  :where(.css-dev-only-do-not-override-98ntnt).ant-form-item {
+    margin-bottom: 16px;
+  }
 
-.field-container :where(.css-dev-only-do-not-override-98ntnt).ant-picker {
-  height: 40px;
-  width: 100%;
+  :where(.css-dev-only-do-not-override-98ntnt).ant-picker {
+    height: 40px;
+    width: 100%;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

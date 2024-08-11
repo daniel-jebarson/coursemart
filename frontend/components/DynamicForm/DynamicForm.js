@@ -10,6 +10,7 @@ import {
   makeApiCall,
   redirectToURL,
 } from '@/utils/formUtils'
+import { Editor } from '@/components/index'
 
 const DynamicForm = ({ config, form, className = '' }) => {
   const { formName, layout, fields, url, redirect } = config
@@ -78,6 +79,8 @@ const DynamicForm = ({ config, form, className = '' }) => {
         if (dependsOn && !showAdditionalFields && dependsOn === 'institute') {
           return null
         }
+
+        ;<Editor />
 
         return (
           <Form.Item

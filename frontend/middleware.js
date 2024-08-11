@@ -2,7 +2,7 @@
 import { NextResponse } from 'next/server'
 import { verifyToken } from '@/utils/common'
 
-export async function middleware(req) {
+export const middleware = async (req) => {
   const token = req.cookies.get('token')
   const url = req.nextUrl.clone()
 

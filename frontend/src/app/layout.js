@@ -5,7 +5,7 @@ import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }) => {
   return (
     <html lang='en'>
       <head />
@@ -18,23 +18,4 @@ export default function RootLayout({ children }) {
   )
 }
 
-// Header
-// Logo
-// navbar
-// search
-// banner - static
-// sorting
-// filter
-// courseList
-// course
-// footer
-// courseItem - dynamic route (server component)
-// homepage - server component
-// categorypage - server component (node js is a category)
-
-// pages
-// signup
-// signin
-// homepage
-// categorypage
-// courseItemPage
+export default RootLayout

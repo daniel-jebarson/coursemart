@@ -25,8 +25,7 @@ const forgotPassword = {
         label: 'Send Reset link',
         type: 'primary',
         htmlType: 'submit',
-        className: 'fullWidth mainBtn',
-        
+        className: 'full-width mainBtn',
       },
     },
   ],

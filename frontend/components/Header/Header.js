@@ -2,7 +2,7 @@
 import styles from './header.module.css'
 import { Logo, NavBar, SearchBar, SignupBtn } from '@/components/index'
 
-function Header() {
+const Header = () => {
   return (
     <header className={styles.header}>
       <div className='container'>
