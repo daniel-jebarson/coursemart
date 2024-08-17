@@ -9,16 +9,18 @@ import {
   renderFormItem,
   makeApiCall,
   redirectToURL,
+  FormList,
 } from '@/utils/formUtils'
-import { Editor } from '@/components/index'
 
 const DynamicForm = ({ config, form, className = '' }) => {
   const { formName, layout, fields, url, redirect } = config
   const router = useRouter()
   const dispatch = useDispatch()
   const [showAdditionalFields, setShowAdditionalFields] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const onFinish = async (values) => {
+    setLoading(true)
     try {
       const response = await makeApiCall(url, values)
       const data = pathOr(null, ['data'], response)
@@ -31,6 +33,8 @@ const DynamicForm = ({ config, form, className = '' }) => {
       )
       message.error(errorMsg)
       console.error(error)
+    } finally {
+      setLoading(false) // Stop loading
     }
   }
 
@@ -63,6 +67,9 @@ const DynamicForm = ({ config, form, className = '' }) => {
         if (fieldEffects) {
           fieldEffects(form)
         }
+        if (field.type === 'list') {
+          return <FormList key={field.name} field={field} />
+        }
         if (field.name === 'role') {
           return (
             <Form.Item
@@ -80,8 +87,6 @@ const DynamicForm = ({ config, form, className = '' }) => {
           return null
         }
 
-        ;<Editor />
-
         return (
           <Form.Item
             key={field.name}
@@ -92,7 +97,7 @@ const DynamicForm = ({ config, form, className = '' }) => {
             style={fieldVisibility(field?.type)}
             {...field}
           >
-            {renderFormItem(field)}
+            {renderFormItem(field, loading)}
           </Form.Item>
         )
       })}

@@ -45,14 +45,10 @@ const createCourse = {
       className: 'third-width',
     },
     {
-      name: 'addQuill',
-      type: 'button',
-      options: {
-        label: 'Add Component',
-        type: 'primary',
-        htmlType: 'button',
-      },
-      className: 'full-width text-right',
+      name: 'addCourseDetails',
+      type: 'list',
+      label: 'courseDetails',
+      className: 'full-width',
     },
   ],
 }

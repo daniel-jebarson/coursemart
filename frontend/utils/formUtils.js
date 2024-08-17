@@ -1,5 +1,6 @@
-import { Input, Button, Select, Radio, Checkbox, DatePicker } from 'antd'
 import axios from 'axios'
+import { Input, Button, Select, Radio, Checkbox, DatePicker, Form } from 'antd'
+import { Editor } from '@/components/index'
 import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
 
 export const fieldVisibility = (type) => {
@@ -46,11 +47,12 @@ export const formItemComponents = {
     </Checkbox.Group>
   ),
   date: (props) => <DatePicker {...props} />,
-  button: (props) => (
+  button: (props, loading) => (
     <Button
       type={props?.options?.type}
       htmlType={props?.options?.htmlType}
       className={props?.options.className}
+      loading={loading}
     >
       {props?.options?.label}
     </Button>
@@ -62,10 +64,10 @@ export const getFullUrl = (path) => {
   return `${baseUrl}${path}`
 }
 
-export const renderFormItem = (field) => {
+export const renderFormItem = (field, loading = false) => {
   const { type } = field
   const component = formItemComponents[type]
-  return component(field)
+  return component(field, loading)
 }
 
 export const makeApiCall = async (url, values) => {
@@ -105,3 +107,28 @@ export const redirectToURL = (data, formName, dispatch, router, redirect) => {
     router.push(`/${formName}`)
   }
 }
+
+export const FormList = ({ field }) => (
+  <Form.List key={field.name} name={field.name}>
+    {(fields, { add, remove }) => (
+      <>
+        <Button
+          type='primary'
+          onClick={() => add()}
+          style={{
+            alignSelf: 'center',
+            marginLeft: 'auto',
+          }}
+        >
+          Add Title and Content
+        </Button>
+        {fields.map(({ key, name, ...restField }) => (
+          <div className={field.className} key={key}>
+            <Editor />
+            <Button onClick={() => remove(name)}>Remove</Button>
+          </div>
+        ))}
+      </>
+    )}
+  </Form.List>
+)
