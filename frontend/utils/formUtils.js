@@ -119,8 +119,9 @@ export const FormList = ({ field }) => (
             alignSelf: 'center',
             marginLeft: 'auto',
           }}
+          size='large'
         >
-          Add Title and Content
+          Add component
         </Button>
         {fields.map(({ key, name }) => (
           <Editor

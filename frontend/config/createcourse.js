@@ -59,6 +59,11 @@ const createCourse = {
         htmlType: 'submit',
         className: 'full-width',
       },
+      style: {
+        position: 'fixed',
+        bottom: 0,
+        right: '20px',
+      },
     },
   ],
   url: '/course/register',
