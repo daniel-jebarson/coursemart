@@ -1,12 +1,12 @@
 'use client'
 import React from 'react'
-import { Form, Input } from 'antd'
+import { Form, Input, Button } from 'antd'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
-const Editor = ({ name, remove }) => {
+const Editor = ({ name, remove, className }) => {
   return (
-    <div>
+    <div className={`${className} mb-2`}>
       <Form.Item
         label={`Title`}
         name={[name, 'title']}
@@ -21,11 +21,7 @@ const Editor = ({ name, remove }) => {
       >
         <ReactQuill placeholder='Enter the content' />
       </Form.Item>
-      {remove && (
-        <Button type='danger' onClick={remove}>
-          Remove
-        </Button>
-      )}
+      {remove && <Button onClick={() => remove(name)}>Remove</Button>}
     </div>
   )
 }

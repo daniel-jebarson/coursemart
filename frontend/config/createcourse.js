@@ -50,7 +50,18 @@ const createCourse = {
       label: 'courseDetails',
       className: 'full-width',
     },
+    {
+      name: 'createCourseBtn',
+      type: 'button',
+      options: {
+        label: 'Create',
+        type: 'primary',
+        htmlType: 'submit',
+        className: 'full-width',
+      },
+    },
   ],
+  url: '/course/register',
 }
 
 export default createCourse

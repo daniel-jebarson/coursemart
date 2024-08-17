@@ -122,11 +122,13 @@ export const FormList = ({ field }) => (
         >
           Add Title and Content
         </Button>
-        {fields.map(({ key, name, ...restField }) => (
-          <div className={field.className} key={key}>
-            <Editor />
-            <Button onClick={() => remove(name)}>Remove</Button>
-          </div>
+        {fields.map(({ key, name }) => (
+          <Editor
+            className={field.className}
+            key={key}
+            name={name}
+            remove={remove}
+          />
         ))}
       </>
     )}
