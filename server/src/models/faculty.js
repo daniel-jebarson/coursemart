@@ -39,6 +39,7 @@ const facultySchema = new mongoose.Schema(
     },
     socialProfile: {
       type: [socialProfileSchema],
+      default: [],
     },
   },
   {
