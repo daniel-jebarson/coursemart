@@ -178,6 +178,20 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-menu-light {
   font-size: 10px;
 }
 
+.unauthorized {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  span {
+    font-weight: bold;
+  }
+}
+
 .field-container {
   display: flex;
   flex-wrap: wrap;

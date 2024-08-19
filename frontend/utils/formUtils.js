@@ -53,6 +53,7 @@ export const formItemComponents = {
       htmlType={props?.options?.htmlType}
       className={props?.options.className}
       loading={loading}
+      size={props?.size}
     >
       {props?.options?.label}
     </Button>

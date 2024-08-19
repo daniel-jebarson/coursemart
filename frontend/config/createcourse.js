@@ -64,6 +64,7 @@ const createCourse = {
         bottom: 0,
         right: '20px',
       },
+      size: 'large',
     },
   ],
   url: '/course/register',

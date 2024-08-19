@@ -26,14 +26,19 @@ const Auth = (WrappedComponent) => {
       } else {
         setIsLoading(false)
       }
-    }, [dispatch, router])
+    }, [dispatch, router, isLoggedIn])
 
     if (isLoading) {
       return <div>Loading...</div> // Render a placeholder during loading
     }
 
     if (!isLoggedIn) {
-      return <div>Unauthorized</div> // Render unauthorized message if not logged in
+      return (
+        <div className='unauthorized'>
+          <span>401 | </span>
+          Unauthorized
+        </div>
+      ) // Render unauthorized message if not logged in
     }
 
     return <WrappedComponent {...props} />

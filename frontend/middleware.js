@@ -16,5 +16,9 @@ export const middleware = async (req) => {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/another-protected-route/:path*'], // Specify the routes to protect
+  matcher: [
+    '/dashboard/:path*',
+    '/createcourse/:path*',
+    '/another-protected-route/:path*',
+  ], // Specify the routes to protect
 }

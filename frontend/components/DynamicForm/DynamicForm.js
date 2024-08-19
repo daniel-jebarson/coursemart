@@ -11,6 +11,7 @@ import {
   redirectToURL,
   FormList,
 } from '@/utils/formUtils'
+import { setSignoutDetails } from '@/store/userSlice'
 
 const DynamicForm = ({ config, form, className = '' }) => {
   const { formName, layout, fields, url, redirect } = config
@@ -33,6 +34,9 @@ const DynamicForm = ({ config, form, className = '' }) => {
       )
       message.error(errorMsg)
       console.error(error)
+      if (error.response.status === 401) {
+        dispatch(setSignoutDetails())
+      }
     } finally {
       setLoading(false) // Stop loading
     }
