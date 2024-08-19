@@ -1,5 +1,44 @@
 const mongoose = require("mongoose");
 
+const socialProfileSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  link: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+});
+
+const galleryProfileSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  link: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+});
+
+const timingSchema = new mongoose.Schema({
+  day: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  opentime: {
+    type: String,
+    trim: true,
+    required: true,
+  },
+});
+
 const instituteSchema = new mongoose.Schema(
   {
     InstituteId: {
@@ -7,6 +46,16 @@ const instituteSchema = new mongoose.Schema(
       ref: "User",
       required: true,
       unique: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    started: {
+      type: String,
+      trim: true,
+      default: "",
     },
     address: {
       type: String,
@@ -26,6 +75,23 @@ const instituteSchema = new mongoose.Schema(
       type: String,
       trim: true,
       default: "N/A",
+    },
+    banner: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+    gallery: {
+      type: [galleryProfileSchema],
+      default: [],
+    },
+    timings: {
+      type: [timingSchema],
+      default: [],
+    },
+    socialProfile: {
+      type: [socialProfileSchema],
+      default: [],
     },
   },
   {

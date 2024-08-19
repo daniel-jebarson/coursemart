@@ -4,7 +4,19 @@ const InstituteModel = require("../models/institute");
 const UserModel = require("../models/user");
 
 const addInstituteData = asyncHandler(async (req, res) => {
-  const { InstituteId, address, website, locations, instLogo } = req.body;
+  const {
+    InstituteId,
+    address,
+    website,
+    locations,
+    instLogo,
+    description,
+    started,
+    banner,
+    gallery,
+    timings,
+    socialProfile,
+  } = req.body;
 
   if (!InstituteId) {
     throw new CustomError("Specify the required fields!", 400);
@@ -26,6 +38,12 @@ const addInstituteData = asyncHandler(async (req, res) => {
       website,
       locations,
       instLogo,
+      description,
+      started,
+      banner,
+      gallery,
+      timings,
+      socialProfile,
     });
 
     if (newInstituteInfo) {
@@ -34,12 +52,25 @@ const addInstituteData = asyncHandler(async (req, res) => {
       throw new CustomError("Failed to add institute data!", 400);
     }
   } catch (error) {
+    console.log(error);
     throw new CustomError("Server Error", 500);
   }
 });
 
 const updateInstituteData = asyncHandler(async (req, res) => {
-  const { InstituteId, address, website, locations, instLogo } = req.body;
+  const {
+    InstituteId,
+    description,
+    started,
+    banner,
+    gallery,
+    timings,
+    socialProfile,
+    address,
+    website,
+    locations,
+    instLogo,
+  } = req.body;
 
   if (!InstituteId) {
     throw new CustomError("Specify the InstituteId!", 400);
@@ -53,6 +84,12 @@ const updateInstituteData = asyncHandler(async (req, res) => {
         website: website,
         locations: locations,
         instLogo: instLogo,
+        description: description,
+        started: started,
+        banner: banner,
+        gallery: gallery,
+        timings: timings,
+        socialProfile: socialProfile,
       },
       { new: true, upsert: true }
     );
