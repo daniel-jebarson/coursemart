@@ -90,7 +90,9 @@ const getCourseByInstituteId = asyncHandler(async (req, res) => {
     await ensureInstituteExists(instituteId);
     const instituteCourse = await CourseModel.find({
       InstituteId: instituteId,
-    }).populate("InstituteId", "name email phone");
+    })
+      .populate("InstituteId", "name email phone")
+      .exec();
 
     if (instituteCourse) {
       res.status(200).json(instituteCourse);

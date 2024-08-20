@@ -7,6 +7,7 @@ const {
 const {
   addInstituteReview,
   updateInstituteReview,
+  getInstituteReviews,
 } = require("../controllers/review");
 const { deleteCourse } = require("../controllers/course");
 const { authorizer } = require("../middleware/auth/auth");
@@ -21,6 +22,7 @@ router
 
 router
   .route("/:id/review")
+  .get(authorizer, getInstituteReviews)
   .post(authorizer, addInstituteReview)
   .put(authorizer, updateInstituteReview);
 

@@ -76,7 +76,32 @@ const updateInstituteReview = asyncHandler(async (req, res) => {
   }
 });
 
+const getInstituteReviews = asyncHandler(async (req, res) => {
+  const { id: InstituteId } = req.params;
+
+  if (!InstituteId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    await ensureInstituteExists(InstituteId);
+    const instituteReviews = await InstituteReviewModel.find({
+      InstituteId: InstituteId,
+    })
+      .populate("UserId", "name email phone")
+      .exec();
+    res.status(200).json(instituteReviews);
+  } catch (error) {
+    console.log(error);
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   addInstituteReview,
   updateInstituteReview,
+  getInstituteReviews,
 };
