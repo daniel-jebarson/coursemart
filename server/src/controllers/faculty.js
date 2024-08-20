@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const FacultyModel = require("../models/faculty");
+const { ensureInstituteExists } = require("../utility/institute");
 
 const registerFaculty = asyncHandler(async (req, res) => {
   const { InstituteId, name, About, experience, qualification, socialProfile } =
@@ -11,6 +12,7 @@ const registerFaculty = asyncHandler(async (req, res) => {
   }
 
   try {
+    await ensureInstituteExists(InstituteId);
     const newFaculty = await FacultyModel.create({
       InstituteId,
       name,
@@ -26,7 +28,10 @@ const registerFaculty = asyncHandler(async (req, res) => {
       throw new CustomError("Failed to create user!", 400);
     }
   } catch (error) {
-    throw new CustomError("Server Error", 500);
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
   }
 });
 

@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const InstituteModel = require("../models/institute");
-const UserModel = require("../models/user");
+const { ensureInstituteExists } = require("../utility/institute");
 
 const addInstituteData = asyncHandler(async (req, res) => {
   const {
@@ -23,15 +23,7 @@ const addInstituteData = asyncHandler(async (req, res) => {
   }
 
   try {
-    const inst = await UserModel.findOne({
-      _id: InstituteId,
-      role: "institute",
-    });
-
-    if (!inst) {
-      throw new CustomError("Institute with that id not found!", 400);
-    }
-
+    await ensureInstituteExists(InstituteId);
     const newInstituteInfo = await InstituteModel.create({
       InstituteId,
       address,
@@ -52,8 +44,10 @@ const addInstituteData = asyncHandler(async (req, res) => {
       throw new CustomError("Failed to add institute data!", 400);
     }
   } catch (error) {
-    console.log(error);
-    throw new CustomError("Server Error", 500);
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
   }
 });
 

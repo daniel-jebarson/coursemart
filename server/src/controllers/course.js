@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const CourseModel = require("../models/course");
+const { ensureInstituteExists } = require("../utility/institute");
 
 const registerCourse = asyncHandler(async (req, res) => {
   const {
@@ -37,6 +38,7 @@ const registerCourse = asyncHandler(async (req, res) => {
   }
 
   try {
+    await ensureInstituteExists(InstituteId);
     const newCourse = await CourseModel.create({
       courseTitle,
       Description,
@@ -66,12 +68,15 @@ const registerCourse = asyncHandler(async (req, res) => {
       throw new CustomError("Failed to create new course!", 400);
     }
   } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
     if (error.name === "ValidationError") {
       // Mongoose validation error
       const errors = Object.values(error.errors).map((err) => err.message);
       throw new CustomError(errors, 400);
     }
-    throw new CustomError("Server Error", 500);
+    throw new CustomError(`Server Error : ${error.message}`, 500);
   }
 });
 
@@ -82,6 +87,7 @@ const getCourseByInstituteId = asyncHandler(async (req, res) => {
   }
 
   try {
+    await ensureInstituteExists(instituteId);
     const instituteCourse = await CourseModel.find({
       InstituteId: instituteId,
     }).populate("InstituteId", "name email phone");
@@ -92,7 +98,10 @@ const getCourseByInstituteId = asyncHandler(async (req, res) => {
       throw new CustomError("Failed to fetch the institute's course!", 400);
     }
   } catch (error) {
-    throw new CustomError("Server Error", 500);
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
   }
 });
 
