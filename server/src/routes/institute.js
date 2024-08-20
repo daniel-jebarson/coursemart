@@ -8,6 +8,7 @@ const {
   addInstituteReview,
   updateInstituteReview,
 } = require("../controllers/review");
+const { deleteCourse } = require("../controllers/course");
 const { authorizer } = require("../middleware/auth/auth");
 
 const router = express.Router();
@@ -22,5 +23,7 @@ router
   .route("/:id/review")
   .post(authorizer, addInstituteReview)
   .put(authorizer, updateInstituteReview);
+
+router.route("/course/:id").delete(authorizer, deleteCourse);
 
 module.exports = router;

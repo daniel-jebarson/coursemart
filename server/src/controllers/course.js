@@ -105,7 +105,35 @@ const getCourseByInstituteId = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteCourse = asyncHandler(async (req, res) => {
+  const { id: courseId } = req.params;
+  const { InstituteId } = req.body;
+
+  if (!courseId || !InstituteId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    await ensureInstituteExists(InstituteId);
+    const result = await CourseModel.deleteOne({
+      InstituteId: InstituteId,
+      _id: courseId,
+    });
+    if (result.deletedCount === 0) {
+      throw new CustomError("Invalid instituteId or courseId", 400);
+    } else {
+      res.status(200).json("Document deleted successfully");
+    }
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   registerCourse,
   getCourseByInstituteId,
+  deleteCourse,
 };
