@@ -102,8 +102,9 @@ const deleteFacultyById = asyncHandler(async (req, res) => {
     const faculty = await FacultyModel.findByIdAndDelete(facultyId);
     if (faculty) {
       res.status(200).json({ message: "Faculty deleted successfully!" });
+    } else {
+      throw new CustomError("Error occured while deleting faculty", 400);
     }
-    throw new CustomError("Error occured while deleting faculty", 400);
   } catch (error) {
     if (error instanceof CustomError) {
       throw error;
