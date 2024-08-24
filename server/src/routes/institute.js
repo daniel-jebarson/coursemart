@@ -1,5 +1,8 @@
 const express = require("express");
-const { registerFaculty } = require("../controllers/faculty");
+const {
+  registerFaculty,
+  getAllFacultiesByInstituteId,
+} = require("../controllers/faculty");
 const {
   addInstituteData,
   updateInstituteData,
@@ -30,5 +33,7 @@ router
 router.route("/:id/info").get(authorizer, getInstituteById);
 
 router.route("/course/:id").delete(authorizer, deleteCourse);
+
+router.route("/:id/faculty").get(authorizer, getAllFacultiesByInstituteId);
 
 module.exports = router;

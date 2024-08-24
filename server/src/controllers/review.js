@@ -1,8 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const InstituteReviewModel = require("../models/institutereview");
-const UserModel = require("../models/user");
-const InstituteModel = require("../models/institute");
 const { ensureInstituteExists } = require("../utility/institute");
 const { ensureUserExists } = require("../utility/user");
 const {

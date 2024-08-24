@@ -10,7 +10,8 @@ const errorHandler = require("./middleware/handler/errorHandler");
 const userRoutes = require("./routes/user");
 const courseRoutes = require("./routes/course");
 const instituteRoutes = require("./routes/institute");
-const EmailRoutes = require("./routes/verify");
+const emailRoutes = require("./routes/verify");
+const facultyRoutes = require("./routes/faculty");
 
 const app = express();
 app.use(cors());
@@ -20,7 +21,8 @@ app.use(logHandler);
 app.use("/user", userRoutes);
 app.use("/course", courseRoutes);
 app.use("/institute", instituteRoutes);
-app.use("/email", EmailRoutes);
+app.use("/email", emailRoutes);
+app.use("/faculty", facultyRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
