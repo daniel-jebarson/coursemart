@@ -76,8 +76,8 @@ const createCourse = {
       className: 'third-width',
     },
     {
-      name: 'addCourseDetails',
-      type: 'list',
+      name: 'courseDetails',
+      type: 'dynamicEditor',
       label: 'courseDetails',
       className: 'full-width',
     },

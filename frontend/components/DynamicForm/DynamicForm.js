@@ -70,23 +70,14 @@ const DynamicForm = ({ config, form, className = '' }) => {
       className={className}
     >
       {fields.map((field) => {
-        const {
-          fieldEffects,
-          dependsOn,
-          name,
-          rules,
-          type,
-          label,
-          text,
-          ...props
-        } = field
+        const { fieldEffects, dependsOn, ...props } = field
         if (fieldEffects) {
           fieldEffects(form)
         }
-        if (type === 'list') {
-          return <FormList key={name} field={field} />
+        if (field?.type === 'dynamicEditor') {
+          return <FormList key={field?.name} field={field} />
         }
-        if (type === 'editor') {
+        if (field?.type === 'editor') {
           return (
             <div className='full-width mb-2'>
               <h3 className='mb-1'>{label}</h3>
@@ -101,10 +92,10 @@ const DynamicForm = ({ config, form, className = '' }) => {
             </div>
           )
         }
-        if (name === 'role') {
+        if (field?.name === 'role') {
           return (
             <Form.Item
-              key={name}
+              key={field?.name}
               colon={false}
               style={fieldVisibility(field?.type)}
               {...props}
@@ -120,19 +111,19 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
         return (
           <Form.Item
-            key={name}
+            key={field?.name}
             label={
               <span>
-                {label}
-                {text && (
-                  <Tooltip title={text}>
+                {field?.label}
+                {field?.text && (
+                  <Tooltip title={field?.text}>
                     <InfoCircleOutlined style={{ marginLeft: 5 }} />
                   </Tooltip>
                 )}
               </span>
             }
-            name={name}
-            rules={rules}
+            name={field?.name}
+            rules={field?.rules}
             colon={false}
             style={fieldVisibility(field?.type)}
             {...field}
