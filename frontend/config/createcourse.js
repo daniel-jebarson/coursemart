@@ -27,9 +27,6 @@ const createCourse = {
         },
         {
           validator: (_, value) => {
-            if (value === undefined) {
-              return Promise.reject(new Error('Please input the course price!'))
-            }
             if (value && value <= 0) {
               return Promise.reject(
                 new Error('Price must be a positive number!')

@@ -1,4 +1,4 @@
-const createFaculity = {
+const createFaculty = {
   formName: 'createFaculity',
   layout: 'vertical',
   fields: [
@@ -23,15 +23,17 @@ const createFaculity = {
       rules: [{ required: true, message: 'Please enter Faculity experience' }],
       className: 'half-width',
     },
-       
+
     {
       name: 'qualification',
       label: 'Faculity qualification',
       type: 'input',
-      rules: [{ required: true, message: 'Please enter Faculity qualification' }],
+      rules: [
+        { required: true, message: 'Please enter Faculity qualification' },
+      ],
       className: 'half-width',
     },
-    
+
     {
       name: 'fb',
       label: 'Facebook page link',
@@ -60,7 +62,7 @@ const createFaculity = {
       rules: [{ required: false, message: 'Please enter course title' }],
       className: 'half-width',
     },
-    
+
     {
       name: 'createCourseBtn',
       type: 'button',
@@ -71,9 +73,10 @@ const createFaculity = {
         className: 'full-width',
       },
       style: {
-        position: 'fixed',
-        bottom: 0,
-        right: '20px',
+        // position: 'fixed',
+        // bottom: 0,
+        // right: '20px',
+        marginLeft: 'auto',
       },
       size: 'large',
     },
@@ -81,4 +84,4 @@ const createFaculity = {
   url: '/institute/faculty',
 }
 
-export default createFaculity
+export default createFaculty

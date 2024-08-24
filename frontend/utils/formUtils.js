@@ -2,6 +2,7 @@ import axios from 'axios'
 import { Input, Button, Select, Radio, Checkbox, DatePicker, Form } from 'antd'
 import { Editor } from '@/components/index'
 import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
+import { pathOr } from 'ramda'
 
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
@@ -72,10 +73,13 @@ export const renderFormItem = (field, loading = false) => {
 }
 
 export const makeApiCall = async (url, values) => {
+  const state = JSON.parse(localStorage.getItem('reduxState'))
+  const token = pathOr(null, ['user', 'signinDetails', 'token'], state)
   try {
     const response = await axios.post(getFullUrl(url), values, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
     })
     return response
@@ -140,17 +144,17 @@ export const FormList = ({ field }) => (
       </>
     )}
   </Form.List>
-);
+)
 
 export const handleValues = (values, action) => {
-  console.log(values, action, 'values');
+  console.log(values, action, 'values')
 
   const socialProfiles = [
     { name: 'linkedIn', link: values.linkedin },
     { name: 'youtube', link: values.youtube },
     { name: 'facebook', link: values.fb },
     { name: 'twitter', link: values.twitter },
-  ].filter(profile => profile.link); // Filters out profiles with undefined or empty links
+  ].filter((profile) => profile.link) // Filters out profiles with undefined or empty links
 
   const baseData = {
     name: values.name,
@@ -158,14 +162,13 @@ export const handleValues = (values, action) => {
     qualification: values.qualification,
     experience: values.experience,
     socialProfiles: socialProfiles,
-  };
+  }
 
-  switch(action) {
+  switch (action) {
     case 'createFaculity':
-      return baseData;
+      return baseData
     // Add more cases here if needed
     default:
-      return values; // or throw an error or return a default value
+      return values // or throw an error or return a default value
   }
-};
-
+}
