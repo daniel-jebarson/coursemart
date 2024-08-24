@@ -187,9 +187,33 @@ const getCourseByFilter = asyncHandler(async (req, res) => {
   }
 });
 
+const getCourseById = asyncHandler(async (req, res) => {
+  const { id: courseId } = req.params;
+  if (!courseId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    const course = await CourseModel.findOne({ _id: courseId }).populate(
+      "InstituteId",
+      "name email phone"
+    );
+    if (!course) {
+      throw new CustomError("Course not found!", 400);
+    }
+    res.status(200).json(course);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   registerCourse,
   getCourseByInstituteId,
   deleteCourse,
   getCourseByFilter,
+  getCourseById,
 };
