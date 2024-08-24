@@ -147,28 +147,16 @@ export const FormList = ({ field }) => (
 )
 
 export const handleValues = (values, action) => {
-  console.log(values, action, 'values')
-
-  const socialProfiles = [
-    { name: 'linkedIn', link: values.linkedin },
-    { name: 'youtube', link: values.youtube },
-    { name: 'facebook', link: values.fb },
-    { name: 'twitter', link: values.twitter },
-  ].filter((profile) => profile.link) // Filters out profiles with undefined or empty links
+  const { linkedin, youtube, fb, twitter } = values
 
   const baseData = {
-    name: values.name,
-    About: values.About,
-    qualification: values.qualification,
-    experience: values.experience,
-    socialProfiles: socialProfiles,
+    socialProfiles: [linkedin, youtube, fb, twitter],
+    ...values,
   }
 
-  switch (action) {
-    case 'createFaculity':
-      return baseData
-    // Add more cases here if needed
-    default:
-      return values // or throw an error or return a default value
+  const valuesMap = {
+    createFaculty: baseData,
   }
+
+  return valuesMap[action] || values
 }
