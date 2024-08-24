@@ -10,6 +10,7 @@ import {
   makeApiCall,
   redirectToURL,
   FormList,
+  handleValues,
 } from '@/utils/formUtils'
 import { setSignoutDetails } from '@/store/userSlice'
 
@@ -22,8 +23,9 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
   const onFinish = async (values) => {
     setLoading(true)
+    const finalValues = handleValues(values, formName);
     try {
-      const response = await makeApiCall(url, values)
+      const response = await makeApiCall(url, finalValues)
       const data = pathOr(null, ['data'], response)
       redirectToURL(data, formName, dispatch, router, redirect)
     } catch (error) {
