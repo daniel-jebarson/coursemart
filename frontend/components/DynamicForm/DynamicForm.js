@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Form, message } from 'antd'
+import { Form, message, Tooltip } from 'antd'
 import { pathOr } from 'ramda'
 import { useRouter } from 'next/navigation'
 import { useDispatch } from 'react-redux'
@@ -12,6 +12,9 @@ import {
   FormList,
   handleValues,
 } from '@/utils/formUtils'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+import { InfoCircleOutlined } from '@ant-design/icons'
 import { setSignoutDetails } from '@/store/userSlice'
 
 const DynamicForm = ({ config, form, className = '' }) => {
@@ -69,17 +72,41 @@ const DynamicForm = ({ config, form, className = '' }) => {
       className={className}
     >
       {fields.map((field) => {
-        const { fieldEffects, dependsOn, ...props } = field
+        const {
+          fieldEffects,
+          dependsOn,
+          name,
+          rules,
+          type,
+          label,
+          text,
+          ...props
+        } = field
         if (fieldEffects) {
           fieldEffects(form)
         }
-        if (field.type === 'list') {
-          return <FormList key={field.name} field={field} />
+        if (type === 'list') {
+          return <FormList key={name} field={field} />
         }
-        if (field.name === 'role') {
+        if (type === 'editor') {
+          return (
+            <div className='full-width mb-2'>
+              <h3 className='mb-1'>{label}</h3>
+              <Form.Item
+                name={[name, 'content']}
+                rules={[
+                  { required: true, message: 'Please input the content!' },
+                ]}
+              >
+                <ReactQuill placeholder='Enter the content' />
+              </Form.Item>
+            </div>
+          )
+        }
+        if (name === 'role') {
           return (
             <Form.Item
-              key={field.name}
+              key={name}
               colon={false}
               style={fieldVisibility(field?.type)}
               {...props}
@@ -95,10 +122,19 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
         return (
           <Form.Item
-            key={field.name}
-            label={field.label}
-            name={field.name}
-            rules={field.rules}
+            key={name}
+            label={
+              <span>
+                {label}
+                {text && (
+                  <Tooltip title={text}>
+                    <InfoCircleOutlined style={{ marginLeft: 5 }} />
+                  </Tooltip>
+                )}
+              </span>
+            }
+            name={name}
+            rules={rules}
             colon={false}
             style={fieldVisibility(field?.type)}
             {...field}

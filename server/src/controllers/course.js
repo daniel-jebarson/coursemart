@@ -134,8 +134,86 @@ const deleteCourse = asyncHandler(async (req, res) => {
   }
 });
 
+const getCourseByFilter = asyncHandler(async (req, res) => {
+  try {
+    const { lang, type, location, tags } = req.query;
+
+    // Build the query object based on provided filters
+    let query = {};
+
+    if (tags) {
+      // Case-insensitive, partial match search for each tags
+      query.tags = {
+        $in: tags.split(",").map((tag) => new RegExp(tag, "i")),
+      };
+    }
+
+    if (lang) {
+      // Case-insensitive, partial match search for each language
+      query.teachingLanguage = {
+        $in: lang.split(",").map((l) => new RegExp(l, "i")),
+      };
+    }
+
+    if (type) {
+      // Case-insensitive, partial match search for each Teachingtype
+      query.teachingMode = {
+        $in: type.split(",").map((t) => new RegExp(t, "i")),
+      };
+    }
+
+    if (location) {
+      // Case-insensitive, partial match search for location
+      query.Location = new RegExp(location, "i");
+    }
+
+    // Fetch the latest 30 courses based on updateTime
+    const courses = await CourseModel.find(query)
+      .sort({ updatedAt: -1 }) // Sort by updateTime descending
+      .limit(30) // Limit to 30 results
+      .select(
+        "_id courseTitle Description teachingLanguage tags teachingMode Certificate InstituteName Location InstituteId"
+      ); //give only the needed fields
+
+    res.status(200).json(courses);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(
+      `Server Error : Failed to fetch data ${error.message}`,
+      500
+    );
+  }
+});
+
+const getCourseById = asyncHandler(async (req, res) => {
+  const { id: courseId } = req.params;
+  if (!courseId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    const course = await CourseModel.findOne({ _id: courseId }).populate(
+      "InstituteId",
+      "name email phone"
+    );
+    if (!course) {
+      throw new CustomError("Course not found!", 400);
+    }
+    res.status(200).json(course);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   registerCourse,
   getCourseByInstituteId,
   deleteCourse,
+  getCourseByFilter,
+  getCourseById,
 };

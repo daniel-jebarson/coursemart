@@ -93,7 +93,30 @@ const updateInstituteData = asyncHandler(async (req, res) => {
   }
 });
 
+const getInstituteById = asyncHandler(async (req, res) => {
+  const { id: InstituteId } = req.params;
+  if (!InstituteId) {
+    throw new CustomError("Specify the required fields!", 400);
+  }
+
+  try {
+    const insitute = await InstituteModel.findOne({
+      InstituteId: InstituteId,
+    }).populate("InstituteId", "name email phone");
+    if (!insitute) {
+      throw new CustomError("Institute not found!", 400);
+    }
+    res.status(200).json(insitute);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   addInstituteData,
   updateInstituteData,
+  getInstituteById,
 };

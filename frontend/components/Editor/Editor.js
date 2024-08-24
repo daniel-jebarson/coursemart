@@ -4,7 +4,7 @@ import { Form, Input, Button } from 'antd'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
-const Editor = ({ name, remove, className }) => {
+const Editor = ({ name, remove, className, canRemove }) => {
   return (
     <div className={`${className} mb-2`}>
       <Form.Item
@@ -21,7 +21,7 @@ const Editor = ({ name, remove, className }) => {
       >
         <ReactQuill placeholder='Enter the content' />
       </Form.Item>
-      {remove && <Button onClick={() => remove(name)}>Remove</Button>}
+      {canRemove && <Button onClick={() => remove(name)}>Remove</Button>}
     </div>
   )
 }
