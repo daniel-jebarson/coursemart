@@ -110,7 +110,11 @@ export const redirectToURL = (data, formName, dispatch, router, redirect) => {
 }
 
 export const FormList = ({ field }) => (
-  <Form.List key={field.name} name={field.name}>
+  <Form.List
+    key={field.name}
+    name={field.name}
+    initialValue={[{ title: '', content: '' }]}
+  >
     {(fields, { add, remove }) => (
       <>
         <Button
@@ -124,12 +128,13 @@ export const FormList = ({ field }) => (
         >
           Add component
         </Button>
-        {fields.map(({ key, name }) => (
+        {fields.map(({ key, name }, index) => (
           <Editor
             className={field.className}
             key={key}
             name={name}
             remove={remove}
+            canRemove={index > 0}
           />
         ))}
       </>

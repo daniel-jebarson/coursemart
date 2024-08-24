@@ -19,13 +19,36 @@ const createCourse = {
     {
       name: 'price',
       label: 'Course Price',
-      type: 'input',
-      rules: [{ required: true, message: 'Please enter course price' }],
+      type: 'number',
+      rules: [
+        {
+          required: true,
+          message: 'Please enter course price',
+        },
+        {
+          validator: (_, value) => {
+            if (value === undefined) {
+              return Promise.reject(new Error('Please input the course price!'))
+            }
+            if (value && value <= 0) {
+              return Promise.reject(
+                new Error('Price must be a positive number!')
+              )
+            }
+            if (value && value > 1000) {
+              // Example max limit
+              return Promise.reject(new Error('Price must not exceed 1000!'))
+            }
+            return Promise.resolve()
+          },
+        },
+      ],
       className: 'third-width',
     },
     {
       name: 'duration',
       label: 'Course Duration',
+      text: 'in months',
       type: 'input',
       rules: [{ required: true, message: 'Please enter course duration' }],
       className: 'third-width',
@@ -33,7 +56,15 @@ const createCourse = {
     {
       name: 'language',
       label: 'Course Language',
-      type: 'input',
+      type: 'select',
+      options: [
+        { label: 'Hindi', value: 'hindi' },
+        { label: 'English', value: 'english' },
+        { label: 'Telugu', value: 'telugu' },
+        { label: 'Tamil', value: 'tamil' },
+        { label: 'Kannada', value: 'kannada' },
+      ],
+      size: 'large',
       rules: [{ required: true, message: 'Please enter course language' }],
       className: 'third-width',
     },
@@ -51,6 +82,12 @@ const createCourse = {
       className: 'full-width',
     },
     {
+      name: 'Prerequisites',
+      type: 'editor',
+      label: 'Prerequisites',
+      className: 'full-width',
+    },
+    {
       name: 'createCourseBtn',
       type: 'button',
       options: {
@@ -60,9 +97,7 @@ const createCourse = {
         className: 'full-width',
       },
       style: {
-        position: 'fixed',
-        bottom: 0,
-        right: '20px',
+        marginLeft: 'auto',
       },
       size: 'large',
     },
