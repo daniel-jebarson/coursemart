@@ -19,7 +19,7 @@ export const sidebarMenu = [
     icon: <AppstoreOutlined />,
   },
   {
-    label: <Link href='/faculty'>Faculity Details</Link>,
+    label: <Link href='/faculty'>Faculty Details</Link>,
     key: 'faculty',
     icon: <UserOutlined />,
   },

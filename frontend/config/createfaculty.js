@@ -1,12 +1,12 @@
 const createFaculty = {
-  formName: 'createFaculity',
+  formName: 'createFaculty',
   layout: 'vertical',
   fields: [
     {
       name: 'name',
-      label: 'Faculity name',
+      label: 'Faculty name',
       type: 'input',
-      rules: [{ required: true, message: 'Please enter Faculity name' }],
+      rules: [{ required: true, message: 'Please enter Faculty name' }],
       className: 'half-width',
     },
     {
@@ -18,18 +18,18 @@ const createFaculty = {
     },
     {
       name: 'experience',
-      label: 'Faculity experience',
+      label: 'Faculty experience',
       type: 'textarea',
-      rules: [{ required: true, message: 'Please enter Faculity experience' }],
+      rules: [{ required: true, message: 'Please enter Faculty experience' }],
       className: 'half-width',
     },
 
     {
       name: 'qualification',
-      label: 'Faculity qualification',
+      label: 'Faculty qualification',
       type: 'input',
       rules: [
-        { required: true, message: 'Please enter Faculity qualification' },
+        { required: true, message: 'Please enter Faculty qualification' },
       ],
       className: 'half-width',
     },

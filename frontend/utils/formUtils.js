@@ -147,15 +147,15 @@ export const FormList = ({ field }) => (
 )
 
 export const handleValues = (values, action) => {
-  const { linkedin, youtube, fb, twitter } = values
+  const { linkedin, youtube, fb, twitter, ...createFacultyDetails } = values
 
-  const baseData = {
+  const createFaculty = {
     socialProfiles: [linkedin, youtube, fb, twitter],
-    ...values,
+    ...createFacultyDetails,
   }
 
   const valuesMap = {
-    createFaculty: baseData,
+    createFaculty,
   }
 
   return valuesMap[action] || values

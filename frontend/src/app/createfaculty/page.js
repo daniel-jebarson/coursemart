@@ -6,7 +6,7 @@ import createFaculty from '@/config/createfaculty'
 const CreateFaculty = () => {
   const [form] = Form.useForm()
   return (
-    <CustomLayout title='Create Faculity'>
+    <CustomLayout title='Create Faculty'>
       <DynamicForm
         form={form}
         config={createFaculty}
