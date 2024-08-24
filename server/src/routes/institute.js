@@ -3,6 +3,7 @@ const { registerFaculty } = require("../controllers/faculty");
 const {
   addInstituteData,
   updateInstituteData,
+  getInstituteById,
 } = require("../controllers/institute");
 const {
   addInstituteReview,
@@ -25,6 +26,8 @@ router
   .get(authorizer, getInstituteReviews)
   .post(authorizer, addInstituteReview)
   .put(authorizer, updateInstituteReview);
+
+router.route("/:id/info").get(authorizer, getInstituteById);
 
 router.route("/course/:id").delete(authorizer, deleteCourse);
 
