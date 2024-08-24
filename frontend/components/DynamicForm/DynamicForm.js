@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Form, message, Tooltip } from 'antd'
 import { pathOr } from 'ramda'
 import { useRouter } from 'next/navigation'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   fieldVisibility,
   renderFormItem,
@@ -18,6 +18,7 @@ import { InfoCircleOutlined } from '@ant-design/icons'
 import { setSignoutDetails } from '@/store/userSlice'
 
 const DynamicForm = ({ config, form, className = '' }) => {
+  const userId = useSelector((state) => state?.user?.signinDetails?._id);
   const { formName, layout, fields, url, redirect } = config
   const router = useRouter()
   const dispatch = useDispatch()
@@ -26,7 +27,7 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
   const onFinish = async (values) => {
     setLoading(true)
-    const finalValues = handleValues(values, formName)
+    const finalValues = handleValues(values, formName, userId)
     try {
       const response = await makeApiCall(url, finalValues)
       const data = pathOr(null, ['data'], response)

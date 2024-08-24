@@ -3,6 +3,7 @@ import { Input, Button, Select, Radio, Checkbox, DatePicker, Form } from 'antd'
 import { Editor } from '@/components/index'
 import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
 import { pathOr } from 'ramda'
+import { ClientPageRoot } from 'next/dist/client/components/client-page'
 
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
@@ -68,6 +69,7 @@ export const getFullUrl = (path) => {
 
 export const renderFormItem = (field, loading = false) => {
   const { type } = field
+  console.log(type)
   const component = formItemComponents[type]
   return component(field, loading)
 }
@@ -146,11 +148,15 @@ export const FormList = ({ field }) => (
   </Form.List>
 )
 
-export const handleValues = (values, action) => {
+export const handleValues = (values, action, userId) => {
   const { linkedin, youtube, fb, twitter, ...createFacultyDetails } = values
 
   const createFaculty = {
-    socialProfiles: [linkedin, youtube, fb, twitter],
+    socialProfile: [{'name': 'Linkedin', link : linkedin},
+      {'name': 'youtube', link : youtube},
+      {'name': 'facebook', link : fb},
+      {'name': 'twitter', link : twitter}],
+      'InstituteId':userId,
     ...createFacultyDetails,
   }
 
