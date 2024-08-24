@@ -26,7 +26,7 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
   const onFinish = async (values) => {
     setLoading(true)
-    const finalValues = handleValues(values, formName);
+    const finalValues = handleValues(values, formName)
     try {
       const response = await makeApiCall(url, finalValues)
       const data = pathOr(null, ['data'], response)
@@ -81,8 +81,8 @@ const DynamicForm = ({ config, form, className = '' }) => {
         }
         if (field?.type === 'editor') {
           return (
-            <div className='full-width mb-2'>
-              <h3 className='mb-1'>{label}</h3>
+            <div key={field?.name} className='full-width mb-2'>
+              <h3 className='mb-1'>{field?.label}</h3>
               <Form.Item
                 name={[name, 'content']}
                 rules={[
