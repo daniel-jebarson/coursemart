@@ -10,6 +10,7 @@ import {
   makeApiCall,
   redirectToURL,
   FormList,
+  handleValues,
 } from '@/utils/formUtils'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -25,8 +26,9 @@ const DynamicForm = ({ config, form, className = '' }) => {
 
   const onFinish = async (values) => {
     setLoading(true)
+    const finalValues = handleValues(values, formName);
     try {
-      const response = await makeApiCall(url, values)
+      const response = await makeApiCall(url, finalValues)
       const data = pathOr(null, ['data'], response)
       redirectToURL(data, formName, dispatch, router, redirect)
     } catch (error) {
