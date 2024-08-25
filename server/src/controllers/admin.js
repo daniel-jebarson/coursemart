@@ -8,7 +8,6 @@ const addCategory = asyncHandler(async (req, res) => {
   if (!title || !description) {
     throw new CustomError("Specify the required fields!", 400);
   }
-  console.log(req.user);
 
   try {
     await verifyAdmin(req.user._id);
@@ -31,6 +30,20 @@ const addCategory = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllCategory = asyncHandler(async (req, res) => {
+  try {
+    const allCategory = await CategoryModel.find().select("title  description");
+
+    res.status(200).json(allCategory);
+  } catch (error) {
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   addCategory,
+  getAllCategory,
 };
