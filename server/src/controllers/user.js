@@ -3,7 +3,6 @@ const { CustomError } = require("../error/custom");
 const UserModel = require("../models/user");
 const ResetPassModel = require("../models/resetPassword");
 const generateJWToken = require("../config/webtoken");
-const bcrypt = require("bcrypt");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, phone, role } = req.body;

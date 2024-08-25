@@ -12,6 +12,7 @@ const courseRoutes = require("./routes/course");
 const instituteRoutes = require("./routes/institute");
 const emailRoutes = require("./routes/verify");
 const facultyRoutes = require("./routes/faculty");
+const adminRoutes = require("./routes/admin");
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,7 @@ app.use("/course", courseRoutes);
 app.use("/institute", instituteRoutes);
 app.use("/email", emailRoutes);
 app.use("/faculty", facultyRoutes);
+app.use("/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello, World!");
