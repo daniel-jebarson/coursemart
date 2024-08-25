@@ -152,10 +152,10 @@ export const handleValues = (values, action, userId) => {
   const { linkedin, youtube, fb, twitter, ...createFacultyDetails } = values
 
   const createFaculty = {
-    socialProfile: [{'name': 'Linkedin', link : linkedin},
-      {'name': 'youtube', link : youtube},
-      {'name': 'facebook', link : fb},
-      {'name': 'twitter', link : twitter}],
+    socialProfile: [linkedin ? {'name': 'Linkedin', link : linkedin} : null,
+      youtube ? {'name': 'youtube', link : youtube} : null,
+      fb ? {'name': 'facebook', link : fb} : null,
+      twitter ?{'name': 'twitter', link : twitter}: null],
       'InstituteId':userId,
     ...createFacultyDetails,
   }
@@ -165,4 +165,37 @@ export const handleValues = (values, action, userId) => {
   }
 
   return valuesMap[action] || values
+}
+
+
+export const makeGetCall = async (url) => {
+  const state = JSON.parse(localStorage.getItem('reduxState'))
+  const token = pathOr(null, ['user', 'signinDetails', 'token'], state)
+  try {
+    const response = await axios.get(getFullUrl(url), {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const makeDeleteCall = async (url) => {
+  const state = JSON.parse(localStorage.getItem('reduxState'))
+  const token = pathOr(null, ['user', 'signinDetails', 'token'], state)
+  try {
+    const response = await axios.delete(getFullUrl(url), {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    return response
+  } catch (error) {
+    throw error
+  }
 }
