@@ -22,7 +22,7 @@ export const formItemComponents = {
     <Input type='hidden' initialvalues={initialValue} />
   ),
   select: (props) => (
-    <Select {...props}>
+    <Select mode={props?.mode || 'single'} {...props}>
       {props?.options?.map((prop) => (
         <Select.Option key={prop.value} value={prop.value}>
           {prop.label}
@@ -135,13 +135,18 @@ export const FormList = ({ field }) => (
           Add component
         </Button>
         {fields.map(({ key, name }, index) => (
-          <Editor
-            className={field.className}
-            key={key}
-            name={name}
-            remove={remove}
-            canRemove={index > 0}
-          />
+          <>
+            {/* {field?.label && (
+              <h3 className='mb-1 full-width'>{field?.label}</h3>
+            )} */}
+            <Editor
+              className={field.className}
+              key={key}
+              name={name}
+              remove={remove}
+              canRemove={index > 0}
+            />
+          </>
         ))}
       </>
     )}
