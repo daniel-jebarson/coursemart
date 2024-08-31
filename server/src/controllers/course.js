@@ -25,6 +25,8 @@ const registerCourse = asyncHandler(async (req, res) => {
     Location,
     courseImage,
     InstituteId,
+    category,
+    subcategory,
     tags,
   } = req.body;
 
@@ -33,7 +35,8 @@ const registerCourse = asyncHandler(async (req, res) => {
     !coursePrice ||
     !ContactNumber ||
     !Location ||
-    !InstituteId
+    !InstituteId ||
+    !category
   ) {
     throw new CustomError("Specify the required fields!", 400);
   }
@@ -60,6 +63,8 @@ const registerCourse = asyncHandler(async (req, res) => {
       Location,
       courseImage,
       InstituteId,
+      category,
+      subcategory,
       tags,
     });
 
@@ -173,7 +178,7 @@ const getCourseByFilter = asyncHandler(async (req, res) => {
       .sort({ updatedAt: -1 }) // Sort by updateTime descending
       .limit(30) // Limit to 30 results
       .select(
-        "_id courseTitle Description teachingLanguage tags teachingMode Certificate InstituteName Location InstituteId"
+        "_id courseTitle Description teachingLanguage tags teachingMode Certificate InstituteName Location InstituteId category subcategory"
       ); //give only the needed fields
 
     res.status(200).json(courses);
@@ -251,7 +256,6 @@ const getCategorySubCategoryList = asyncHandler(async (req, res) => {
 
     res.status(200).json(categories);
   } catch (error) {
-    console.log(error);
     if (error instanceof CustomError) {
       throw error;
     }
