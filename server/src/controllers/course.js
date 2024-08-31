@@ -178,7 +178,7 @@ const getCourseByFilter = asyncHandler(async (req, res) => {
       .sort({ updatedAt: -1 }) // Sort by updateTime descending
       .limit(30) // Limit to 30 results
       .select(
-        "_id courseTitle Description teachingLanguage tags teachingMode Certificate InstituteName Location InstituteId category subcategory"
+        "_id courseTitle Description teachingLanguage tags teachingMode Certificate InstituteName Location InstituteId category subcategory courseImage"
       ); //give only the needed fields
 
     res.status(200).json(courses);
