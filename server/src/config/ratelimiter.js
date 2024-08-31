@@ -1,5 +1,4 @@
 const rateLimit = require("express-rate-limit");
-const colors = require("colors");
 
 const getRemainingTimeInSeconds = (resetTime) => {
   const now = Date.now();
@@ -28,9 +27,6 @@ const limiter = rateLimit({
         resetInSeconds: remainingTimeInSeconds, // Remaining time in seconds
       },
     });
-  },
-  onLimitReached: (req, res, options) => {
-    console.log(`Rate limit exceeded for IP ${req.ip}`.cyan.bold);
   },
 });
 
