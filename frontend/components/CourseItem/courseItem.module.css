@@ -10,10 +10,13 @@
   transition: all 0.2s;
   position: relative;
   border: 1px solid #ededed;
+  margin-bottom: 8px;
 }
+
 .course:hover {
   /* box-shadow: 0 2px 5px 5px #a2a2a247; */
 }
+
 .img {
   border-radius: 10px 10px 0 0;
 }
@@ -44,6 +47,7 @@
   margin-right: 10px;
   color: #7e8287;
 }
+
 .pointsBlock {
   font-size: 13px;
 }

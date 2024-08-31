@@ -6,10 +6,12 @@ import {
   LaptopOutlined,
 } from '@ant-design/icons'
 import styles from './courseItem.module.css'
+import Link from 'next/link'
 
 const CourseItem = (props) => {
   const type = props.displayType
   console.log(type)
+  const { course } = props
 
   return (
     <div className={`${styles.course} ${type === 'single' ? 'flex' : ''} `}>
@@ -25,20 +27,17 @@ const CourseItem = (props) => {
       </div>
       <div className={styles.content}>
         <Button type='link' className={styles.linkBtn}>
-          Naresh IT Solutions
+          {course.InstituteName}
         </Button>
-        <h2>Mastering Next.js 13 with TypeScript</h2>
-        <p>
-          Everything you need to build full-stack applications with Next.js 13+
-          (App Router) and TypeScript
-        </p>
+        <h2>{course.courseTitle}</h2>
+        <p>{course.Description}</p>
         <Row gutter={20} className={styles.pointsBlock}>
           <Col
             span={`${type === 'single' ? '6' : '12'}`}
             className={`${styles.coursePoints} gutter-row`}
           >
             <FieldTimeOutlined />
-            14 Weeks
+            {course.Duration}
           </Col>
 
           <Col
@@ -46,31 +45,35 @@ const CourseItem = (props) => {
             className={`${styles.coursePoints} gutter-row`}
           >
             <CalendarOutlined />
-            Weekday Classes
+            {course.teachingLanguage[0]}
           </Col>
           <Col
             span={`${type === 'single' ? '6' : '12'}`}
             className={`${styles.coursePoints} gutter-row`}
           >
             <SafetyCertificateOutlined />
-            Certificate
+            {course.Certificate ? 'Certificate' : null}
           </Col>
           <Col
             span={`${type === 'single' ? '6' : '12'}`}
             className={`${styles.coursePoints} gutter-row`}
           >
             <LaptopOutlined />
-            Online Classes
+            {course.teachingMode[0]}
           </Col>
         </Row>
         {type === 'single' ? (
-          <Button type='link' className={styles.linkBtn}>
+          <Link
+            href={`/course/${course._id}/${course.courseTitle}`}
+            type='link'
+            className={styles.linkBtn}
+          >
             View Course Details
-          </Button>
+          </Link>
         ) : (
-          <Button type='primary' size='large' ghost block>
+          <Link type='primary' size='large' ghost block>
             View Course Details
-          </Button>
+          </Link>
         )}
       </div>
     </div>

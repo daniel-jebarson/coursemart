@@ -11,9 +11,9 @@ const { authorizer } = require("../middleware/auth/auth");
 const router = express.Router();
 
 router.route("/register").post(authorizer, registerCourse);
-router.route("/institute/:instituteId").get(authorizer, getCourseByInstituteId);
-router.route("/search").get(authorizer, getCourseByFilter);
-router.route("/categories").get(authorizer, getCategorySubCategoryList);
-router.route("/:id").get(authorizer, getCourseById);
+router.route("/institute/:instituteId").get(getCourseByInstituteId);
+router.route("/search").get(getCourseByFilter);
+router.route("/categories").get(getCategorySubCategoryList);
+router.route("/:id").get(getCourseById);
 
 module.exports = router;

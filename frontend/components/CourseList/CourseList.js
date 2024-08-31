@@ -1,6 +1,9 @@
+'use client'
+import { useEffect, useState } from 'react'
 import { Button, Dropdown, Col, Row } from 'antd'
 import { CourseItem } from '@/components/index'
 import styles from './courseList.module.css'
+import { makeGetCall } from '@/utils/formUtils'
 
 const items = [
   {
@@ -40,11 +43,26 @@ const items = [
     ),
   },
 ]
+const getUrl = '/course/search'
 const CourseList = () => {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await makeGetCall(getUrl)
+        console.log(data, 'data')
+        setData(data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [getUrl])
   return (
     <>
       <div className={`${styles.panelHead} flex between`}>
-        <h2>Showing 620 courses</h2>
+        <h2>Showing {data?.length} courses</h2>
         <Dropdown
           menu={{
             items,
@@ -58,24 +76,13 @@ const CourseList = () => {
         </Dropdown>
       </div>
       <Row gutter={20}>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
-        <Col span={24} className={`${styles.item} gutter-row`}>
-          <CourseItem displayType={'single'} />
-        </Col>
+        {data.map((course) => {
+          return (
+            <Col span={24} className={`${styles.item} gutter-row`}>
+              <CourseItem displayType={'single'} course={course} />
+            </Col>
+          )
+        })}
       </Row>
     </>
   )
