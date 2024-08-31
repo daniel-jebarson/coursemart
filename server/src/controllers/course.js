@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const { CustomError } = require("../error/custom");
 const CourseModel = require("../models/course");
+const CategoryModel = require("../models/category");
 const { ensureInstituteExists } = require("../utility/institute");
 
 const registerCourse = asyncHandler(async (req, res) => {
@@ -210,10 +211,59 @@ const getCourseById = asyncHandler(async (req, res) => {
   }
 });
 
+const getCategorySubCategoryList = asyncHandler(async (req, res) => {
+  try {
+    const categories = await CategoryModel.aggregate([
+      {
+        $lookup: {
+          from: "subcategories", // The collection to join with
+          localField: "_id", // Field from Category schema
+          foreignField: "category", // Field from Subcategory schema
+          as: "subcategories", // Output array field name
+          pipeline: [
+            // Pipeline to filter subcategory fields
+            {
+              $project: {
+                // Project only the required fields
+                title: 1,
+                description: 1,
+                _id: 1,
+              },
+            },
+          ],
+        },
+      },
+      {
+        $unwind: {
+          path: "$subcategories", // Path to unwind
+          preserveNullAndEmptyArrays: true, // Keep categories even if they have no subcategories
+        },
+      },
+      {
+        $group: {
+          _id: "$_id", // Group by category ID
+          title: { $first: "$title" },
+          description: { $first: "$description" },
+          subcategories: { $push: "$subcategories" }, // Aggregate subcategories
+        },
+      },
+    ]);
+
+    res.status(200).json(categories);
+  } catch (error) {
+    console.log(error);
+    if (error instanceof CustomError) {
+      throw error;
+    }
+    throw new CustomError(`Server Error : ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   registerCourse,
   getCourseByInstituteId,
   deleteCourse,
   getCourseByFilter,
   getCourseById,
+  getCategorySubCategoryList,
 };
