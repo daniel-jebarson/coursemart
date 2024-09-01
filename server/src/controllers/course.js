@@ -35,8 +35,8 @@ const registerCourse = asyncHandler(async (req, res) => {
     !coursePrice ||
     !ContactNumber ||
     !Location ||
-    !InstituteId ||
-    !category
+    !InstituteId
+    // ||!category
   ) {
     throw new CustomError("Specify the required fields!", 400);
   }
