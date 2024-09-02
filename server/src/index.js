@@ -2,6 +2,7 @@ const cors = require("cors");
 const colors = require("colors");
 const connectDB = require("./config/db");
 const express = require("express");
+const ratelimiter = require("./config/ratelimiter");
 const logHandler = require("./middleware/logs/log");
 require("dotenv").config();
 const NotFound = require("./middleware/handler/404");
@@ -18,6 +19,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(logHandler);
+app.use(ratelimiter);
 
 app.use("/user", userRoutes);
 app.use("/course", courseRoutes);

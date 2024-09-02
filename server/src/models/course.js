@@ -17,6 +17,21 @@ const courseSchema = new mongoose.Schema(
     courseTitle: { type: String, trim: true, required: true },
     Description: { type: String, trim: true },
     coursePrice: { type: Number, trim: true, required: true },
+    category: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        default: [],
+        // required: true,
+      },
+    ],
+    subcategory: [
+      {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Subcategory",
+        default: [],
+      },
+    ],
     Duration: { type: String, trim: true, default: "N/A" },
     teachingLanguage: {
       type: [String],

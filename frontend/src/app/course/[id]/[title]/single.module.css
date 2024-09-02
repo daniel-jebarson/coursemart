@@ -1,0 +1,154 @@
+.banner {
+  background: #f4f6fd;
+  color: #222;
+  margin-bottom: 40px;
+}
+
+.content {
+  padding: 60px 0;
+}
+
+.banner p {
+  line-height: 24px;
+  font-size: 16px;
+  letter-spacing: 0.2px;
+  color: #222;
+}
+
+.banner h1 {
+  font-size: 36px;
+  margin-bottom: 14px;
+}
+
+.rating {
+  margin: 10px 0 0 0;
+}
+
+.rating .ant-image-mask {
+  margin-right: 10px;
+}
+
+.ratingText {
+  margin-left: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.courseContent {
+  margin-bottom: 40px;
+}
+
+.courseContent h2 {
+  margin-bottom: 20px;
+}
+
+.points {
+  font-size: 16px;
+  margin-bottom: 10px;
+  list-style: disc;
+}
+
+.txt {
+  display: block;
+  margin: -1px 0 0 0;
+}
+
+.priceBox {
+  position: absolute !important;
+  top: 140px;
+  left: 50%;
+  margin-left: 260px;
+}
+
+.priceBlock {
+  border: 1px solid #e1e1e1;
+  padding: 10px;
+  border-radius: 10px;
+  background: #fff;
+  width: 324px;
+}
+
+.price {
+  margin: 15px 0 20px 0;
+  font-size: 20px;
+}
+
+.price b {
+  font-size: 22px;
+  margin-right: 10px;
+}
+
+.price span {
+  font-size: 20px;
+  color: #6a6f73;
+  text-decoration: line-through;
+  margin-right: 10px;
+}
+
+.smallText {
+  color: #6a6f73;
+  display: block;
+  text-align: center;
+  margin: 10px 0 0;
+  font-size: 12px;
+}
+
+.contactBlock {
+  padding: 20px 0;
+  border-top: 1px solid #e1e1e1;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.contactBlock p {
+  margin-bottom: 10px;
+}
+
+.dailBlock {
+  display: flex;
+  justify-content: center;
+  text-align: left;
+}
+
+.dailBlock svg {
+  font-size: 20px;
+  margin-right: 6px;
+  transform: rotate(119deg);
+}
+
+.dail b {
+  display: block;
+}
+
+.dail .smalltext {
+  color: #6a6f73;
+  font-size: 12px;
+}
+
+.course {
+  border-top: 1px solid #e1e1e1;
+  margin: 20px 0 0;
+  padding: 0px 10px 0;
+}
+
+.course_block {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.course_block:last-child {
+  border: 0;
+}
+
+.course_block span {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #6a6f73;
+}
+
+.course_block b {
+  font-size: 14px;
+  font-weight: 400;
+}
