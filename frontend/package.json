@@ -13,7 +13,7 @@
     "@reduxjs/toolkit": "^2.2.6",
     "antd": "^5.19.1",
     "aws-sdk": "^2.1685.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "jsonwebtoken": "^9.0.2",
     "next": "^14.2.5",
     "quill": "^2.0.2",
