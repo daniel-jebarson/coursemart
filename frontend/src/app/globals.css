@@ -61,10 +61,20 @@ li {
   margin-bottom: 10px;
 }
 
+.mb-1 {
+  margin-bottom: 10px;
+}
 .mb-2 {
   margin-bottom: 20px;
 }
 
+.mb-3 {
+  margin-bottom: 30px;
+}
+
+.ml-3 {
+  margin-left: 30px;
+}
 .text-center {
   text-align: center;
 }
@@ -83,6 +93,12 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-layout .ant-layout-sider {
 }
 
 body :where(.css-dev-only-do-not-override-98ntnt).ant-layout {
+h3, h4{margin-bottom: 10px;}
+h5{margin-bottom: 5px;}
+p{color: #0a2540;font-weight: 400;font-size: 16px;line-height: 24px;}
+.sidebar
+  :where(.css-dev-only-do-not-override-3mqfnx).ant-menu-light
+  .ant-menu-item-selected {
   background-color: #ffffff;
 }
 
@@ -92,6 +108,35 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-layout {
   border: 1px solid #ededed;
 }
 
+.label-block {
+  label {
+    font-weight: 400;
+    color: #555;
+    margin-right: 10px;
+    font-size: 14px;
+  }
+  b{
+    font-size: 14px;
+  }
+}
+
+.social {
+  a {
+    color: #222;
+    font-size: 26px;
+  }
+}
+.anticon-star {
+  font-size: 46px;
+}
+
+.small .anticon-star {
+  font-size: 26px;
+}
+
+.medium .anticon-star {
+  font-size: 36px;
+}
 :where(.css-dev-only-do-not-override-3mqfnx).ant-collapse
   .ant-collapse-content {
   border: 0;
@@ -125,6 +170,10 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-layout {
   height: 40px;
 }
 
+/* .ant-col .ant-input:not(.textarea),
+:where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper {
+  height: 40px;
+} */
 :where(.css-dev-only-do-not-override-98ntnt).ant-input-affix-wrapper input {
   height: 30px !important;
 }

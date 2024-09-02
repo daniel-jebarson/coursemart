@@ -1,0 +1,116 @@
+.imagelisting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .imagelisting > div {
+    flex: 1 33%;
+    width: 33%;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .imagelisting > div img {
+    width: 100%;
+    border: 3px solid gray;
+  }
+  
+  .imagelisting > div.active img {
+    border-color: skyblue;
+  }
+  
+  .imageslide > img, .imageslide > p {
+    width: 100%;
+    display: none;
+  }
+    
+  .imageslide > img.active, .imageslide > p.active {
+    display: block;
+    animation-name: fade;
+    animation-duration: 0.75s;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0.4;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  
+  .imagenavigation {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-10%);
+    font-size: 3em;
+    cursor: pointer;
+  }
+  
+  .next {
+    right: 20px;
+  }
+  
+  .prev {
+    left: 20px;
+  }
+  
+
+  .modalbackdrop {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    top: 0;
+    left: 0;
+  }
+  
+  .modalwrapper {
+    padding: 10px;
+    margin: 10px auto;
+    box-shadow: 0px 2px 6px #000;
+    position: fixed;
+    width: 100%;
+    max-width: 500px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 11111;
+    background-color: #fff;
+  }
+  
+  @keyframes slide {
+    from {
+      transform: translate(-50%, -100%);
+    }
+    to {
+      transform: translate(-50%, -50%);
+    }
+  }
+  
+  .modalwrapper.active {
+    animation-name: slide;
+    animation-duration: 0.35s;
+  }
+  
+  .modalheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .modalclose {
+    text-align: center;
+    font-size: 1.2em;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: gray;
+    line-height: 1.7em;
+    color: #fff;
+  }
+  
