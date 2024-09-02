@@ -86,7 +86,7 @@ const createCourse = {
       text: 'Tags',
       mode: 'tags',
       type: 'select',
-      notFoundContent: null,
+      // notFoundContent: null,
       size: 'large',
       rules: [{ required: true, message: 'Please enter tags' }],
       className: 'third-width',
@@ -172,6 +172,13 @@ const createCourse = {
     },
     // Location,
     // courseImage
+    {
+      name: 'courseImage',
+      type: 'upload',
+      label: 'Course Image',
+      rules: [{ required: true, message: 'Please upload atleast one image' }],
+      className: 'third-width',
+    },
     {
       name: 'createCourseBtn',
       type: 'button',

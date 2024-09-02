@@ -9,7 +9,6 @@ import styles from './courseItem.module.css'
 
 const CourseItem = (props) => {
   const type = props.displayType
-  console.log(type)
 
   return (
     <div className={`${styles.course} ${type === 'single' ? 'flex' : ''} `}>

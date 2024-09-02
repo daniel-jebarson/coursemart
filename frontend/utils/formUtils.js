@@ -1,9 +1,8 @@
 import axios from 'axios'
 import { Input, Button, Select, Radio, Checkbox, DatePicker, Form } from 'antd'
-import { Editor } from '@/components/index'
+import { Editor, UploadImage } from '@/components/index'
 import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
 import { pathOr } from 'ramda'
-import { ClientPageRoot } from 'next/dist/client/components/client-page'
 
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
@@ -60,6 +59,7 @@ export const formItemComponents = {
       {props?.options?.label}
     </Button>
   ),
+  upload: (props, loading, form) => <UploadImage {...props} form={form} />,
 }
 
 export const getFullUrl = (path) => {
@@ -67,11 +67,10 @@ export const getFullUrl = (path) => {
   return `${baseUrl}${path}`
 }
 
-export const renderFormItem = (field, loading = false) => {
+export const renderFormItem = (field, loading = false, form) => {
   const { type } = field
-  console.log(type)
   const component = formItemComponents[type]
-  return component(field, loading)
+  return component(field, loading, form)
 }
 
 export const makeApiCall = async (url, values) => {
@@ -106,6 +105,9 @@ export const redirectToURL = (data, formName, dispatch, router, redirect) => {
       }
     },
     verifyEmail: () => {},
+    createCourse: () => {
+      // form?.setFieldValue('courseImage', newActiveBanks)
+    },
   }
 
   if (url[formName]) {
@@ -135,18 +137,13 @@ export const FormList = ({ field }) => (
           Add component
         </Button>
         {fields.map(({ key, name }, index) => (
-          <>
-            {/* {field?.label && (
-              <h3 className='mb-1 full-width'>{field?.label}</h3>
-            )} */}
-            <Editor
-              className={field.className}
-              key={key}
-              name={name}
-              remove={remove}
-              canRemove={index > 0}
-            />
-          </>
+          <Editor
+            className={field.className}
+            key={key}
+            name={name}
+            remove={remove}
+            canRemove={index > 0}
+          />
         ))}
       </>
     )}
@@ -157,11 +154,13 @@ export const handleValues = (values, action, userId) => {
   const { linkedin, youtube, fb, twitter, ...createFacultyDetails } = values
 
   const createFaculty = {
-    socialProfile: [linkedin ? {'name': 'Linkedin', link : linkedin} : null,
-      youtube ? {'name': 'youtube', link : youtube} : null,
-      fb ? {'name': 'facebook', link : fb} : null,
-      twitter ?{'name': 'twitter', link : twitter}: null],
-      'InstituteId':userId,
+    socialProfile: [
+      linkedin ? { name: 'Linkedin', link: linkedin } : null,
+      youtube ? { name: 'youtube', link: youtube } : null,
+      fb ? { name: 'facebook', link: fb } : null,
+      twitter ? { name: 'twitter', link: twitter } : null,
+    ],
+    InstituteId: userId,
     ...createFacultyDetails,
   }
 
@@ -171,7 +170,6 @@ export const handleValues = (values, action, userId) => {
 
   return valuesMap[action] || values
 }
-
 
 export const makeGetCall = async (url) => {
   const state = JSON.parse(localStorage.getItem('reduxState'))

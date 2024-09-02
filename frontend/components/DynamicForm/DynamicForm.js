@@ -18,7 +18,7 @@ import { InfoCircleOutlined } from '@ant-design/icons'
 import { setSignoutDetails } from '@/store/userSlice'
 
 const DynamicForm = ({ config, form, className = '' }) => {
-  const userId = useSelector((state) => state?.user?.signinDetails?._id);
+  const userId = useSelector((state) => state?.user?.signinDetails?._id)
   const { formName, layout, fields, url, redirect } = config
   const router = useRouter()
   const dispatch = useDispatch()
@@ -103,13 +103,40 @@ const DynamicForm = ({ config, form, className = '' }) => {
               style={fieldVisibility(field?.type)}
               {...props}
             >
-              {renderFormItem({ ...props, onChange: handleOnChange(field) })}
+              {renderFormItem(
+                {
+                  ...props,
+                  onChange: handleOnChange(field),
+                },
+                loading,
+                form
+              )}
             </Form.Item>
           )
         }
 
         if (dependsOn && !showAdditionalFields && dependsOn === 'institute') {
           return null
+        }
+
+        if (field?.type === 'upload') {
+          return (
+            <Form.Item
+              key={field?.name}
+              colon={false}
+              style={fieldVisibility(field?.type)}
+              {...props}
+            >
+              {renderFormItem(
+                {
+                  ...props,
+                  onChange: handleOnChange(field),
+                },
+                loading,
+                form
+              )}
+            </Form.Item>
+          )
         }
 
         return (
@@ -131,7 +158,7 @@ const DynamicForm = ({ config, form, className = '' }) => {
             style={fieldVisibility(field?.type)}
             {...field}
           >
-            {renderFormItem(field, loading)}
+            {renderFormItem(field, loading, form)}
           </Form.Item>
         )
       })}
