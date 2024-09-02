@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Form, message, Tooltip } from 'antd'
 import { pathOr } from 'ramda'
 import { useRouter } from 'next/navigation'
@@ -24,6 +24,17 @@ const DynamicForm = ({ config, form, className = '' }) => {
   const dispatch = useDispatch()
   const [showAdditionalFields, setShowAdditionalFields] = useState(false)
   const [loading, setLoading] = useState(false)
+  const quillRefs = useRef([]) // Create a ref array to store multiple Quill editor refs
+
+  useEffect(() => {
+    quillRefs.current.forEach((quillRef) => {
+      const quill = quillRef?.getEditor()
+      if (quill) {
+        quill.focus()
+        quill.format('list', 'bullet') // Apply the bullet list format
+      }
+    })
+  }, [])
 
   const onFinish = async (values) => {
     setLoading(true)
@@ -72,7 +83,7 @@ const DynamicForm = ({ config, form, className = '' }) => {
       scrollToFirstError
       className={className}
     >
-      {fields.map((field) => {
+      {fields.map((field, index) => {
         const { fieldEffects, dependsOn, ...props } = field
         if (fieldEffects) {
           fieldEffects(form)
@@ -85,12 +96,19 @@ const DynamicForm = ({ config, form, className = '' }) => {
             <div key={field?.name} className='full-width mb-2'>
               <h3 className='mb-1'>{field?.label}</h3>
               <Form.Item
-                name={[name, 'content']}
+                name={[field?.name, 'content']}
                 rules={[
                   { required: true, message: 'Please input the content!' },
                 ]}
+                type={props?.type}
+                className={props?.className}
               >
-                <ReactQuill placeholder='Enter the content' />
+                <ReactQuill
+                  ref={(el) => (quillRefs.current[index] = el)}
+                  placeholder='Enter the content'
+                  modules={props?.modules}
+                  formats={props?.formats}
+                />
               </Form.Item>
             </div>
           )

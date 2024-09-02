@@ -1,3 +1,5 @@
+import { cities } from '@/config/cities'
+
 const createCourse = {
   formName: 'createCourse',
   layout: 'vertical',
@@ -69,6 +71,7 @@ const createCourse = {
         { label: 'Tamil', value: 'tamil' },
         { label: 'Kannada', value: 'kannada' },
       ],
+      mode: 'multiple',
       size: 'large',
       rules: [{ required: true, message: 'Please enter course language' }],
       className: 'third-width',
@@ -84,7 +87,7 @@ const createCourse = {
       name: 'tags',
       label: 'Tags',
       text: 'Tags',
-      mode: 'tags',
+      mode: 'multiple',
       type: 'select',
       // notFoundContent: null,
       size: 'large',
@@ -100,6 +103,7 @@ const createCourse = {
         { label: 'Offline', value: 'offline' },
         { label: 'Both', value: 'both' },
       ],
+      mode: 'multiple',
       size: 'large',
       rules: [{ required: true, message: 'Please enter course language' }],
       className: 'third-width',
@@ -155,6 +159,12 @@ const createCourse = {
       label: 'Prerequisites',
       rules: [{ required: true, message: 'Please select course start date' }],
       className: 'full-width',
+      modules: {
+        toolbar: [
+          [{ list: 'bullet' }], // Only allow unordered lists
+        ],
+      },
+      formats: ['list'],
     },
     {
       name: 'LearningOutcomes',
@@ -162,6 +172,12 @@ const createCourse = {
       label: 'Learning Outcomes',
       rules: [{ required: true, message: 'Please select course start date' }],
       className: 'full-width',
+      modules: {
+        toolbar: [
+          [{ list: 'bullet' }], // Only allow unordered lists
+        ],
+      },
+      formats: ['list'],
     },
     {
       name: 'keyFeatures',
@@ -169,9 +185,24 @@ const createCourse = {
       label: 'Key Features',
       rules: [{ required: true, message: 'Please select course start date' }],
       className: 'full-width',
+      modules: {
+        toolbar: [
+          [{ list: 'bullet' }], // Only allow unordered lists
+        ],
+      },
+      formats: ['list'],
     },
     // Location,
     // courseImage
+    {
+      name: 'Location',
+      label: 'Location',
+      type: 'select',
+      options: cities.sort((a, b) => a.label - b.label),
+      size: 'large',
+      rules: [{ required: true, message: 'Please enter course language' }],
+      className: 'third-width',
+    },
     {
       name: 'courseImage',
       type: 'upload',

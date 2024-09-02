@@ -4,6 +4,8 @@ import { Editor, UploadImage } from '@/components/index'
 import { setSignupDetails, setSigninDetails } from '@/store/userSlice'
 import { pathOr } from 'ramda'
 
+const getState = () => JSON.parse(localStorage.getItem('reduxState'))
+
 export const fieldVisibility = (type) => {
   if (type === 'hidden') {
     return { display: 'none' }
@@ -21,7 +23,14 @@ export const formItemComponents = {
     <Input type='hidden' initialvalues={initialValue} />
   ),
   select: (props) => (
-    <Select mode={props?.mode || 'single'} {...props}>
+    <Select
+      filterOption={(input, option) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+      }
+      showSearch
+      mode={props?.mode || 'single'}
+      {...props}
+    >
       {props?.options?.map((prop) => (
         <Select.Option key={prop.value} value={prop.value}>
           {prop.label}
@@ -74,7 +83,7 @@ export const renderFormItem = (field, loading = false, form) => {
 }
 
 export const makeApiCall = async (url, values) => {
-  const state = JSON.parse(localStorage.getItem('reduxState'))
+  const state = getState()
   const token = pathOr(null, ['user', 'signinDetails', 'token'], state)
   try {
     const response = await axios.post(getFullUrl(url), values, {
@@ -165,14 +174,21 @@ export const handleValues = (values, action, userId) => {
   }
 
   const valuesMap = {
-    createFaculty,
+    createFaculty: () => createFaculty,
+    createCourse: () => {
+      const state = getState()
+      const instituteId = pathOr(null, ['user', 'signinDetails', '_id'], state)
+      return {
+        ...values,
+        InstituteId: instituteId,
+      }
+    },
   }
 
-  return valuesMap[action] || values
+  return valuesMap[action]() || values
 }
 
 export const makeGetCall = async (url) => {
-  const state = JSON.parse(localStorage.getItem('reduxState'))
   const token = pathOr(null, ['user', 'signinDetails', 'token'], state)
   try {
     const response = await axios.get(getFullUrl(url), {
