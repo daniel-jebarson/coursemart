@@ -185,7 +185,7 @@ export const handleValues = (values, action, userId) => {
     },
   }
 
-  return valuesMap[action]() || values
+  return typeof valuesMap[action] === 'function' ? valuesMap[action]() : values
 }
 
 export const makeGetCall = async (url) => {

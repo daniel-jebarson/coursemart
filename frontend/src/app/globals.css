@@ -93,9 +93,20 @@ body :where(.css-dev-only-do-not-override-98ntnt).ant-layout .ant-layout-sider {
 }
 
 body :where(.css-dev-only-do-not-override-98ntnt).ant-layout {
-h3, h4{margin-bottom: 10px;}
-h5{margin-bottom: 5px;}
-p{color: #0a2540;font-weight: 400;font-size: 16px;line-height: 24px;}
+}
+h3,
+h4 {
+  margin-bottom: 10px;
+}
+h5 {
+  margin-bottom: 5px;
+}
+p {
+  color: #0a2540;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+}
 .sidebar
   :where(.css-dev-only-do-not-override-3mqfnx).ant-menu-light
   .ant-menu-item-selected {
@@ -115,7 +126,7 @@ p{color: #0a2540;font-weight: 400;font-size: 16px;line-height: 24px;}
     margin-right: 10px;
     font-size: 14px;
   }
-  b{
+  b {
     font-size: 14px;
   }
 }
